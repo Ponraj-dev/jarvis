@@ -113,7 +113,7 @@ function speakThis(message) {
 //addeventlistener - check the event is happens or not (like try block)
 
 //webkitspecch recognition - This accepts input via audio, performs speech recognition and puts the text into the input box.
-/*
+
 const btn = document.querySelector('.talk');
 const content = document.querySelector('.content');
 
@@ -257,4 +257,4 @@ function speakThis(message) {
     speech.rate = 1;
 
     window.speechSynthesis.speak(speech);
-}*/
+}
