@@ -120,7 +120,7 @@ function wishMe(){
 
 
 
-//weather module.....................................................................................................................
+//weather module............................................................................................................................
 
 function weather(){
     let name="tirunelveli";
@@ -139,22 +139,42 @@ function weather(){
 
 
 
+//joke generator .............................................................................................................................
+
+function acquireJoke() {
+
+    let API = "https://v2.jokeapi.dev/joke/Any?blacklistFlags=nsfw,religious,political,racist,sexist,explicit&type=single";
+    // remove content-fade class
+    // fetch joke from the API
+    fetch(API)
+      .then((info) => info.json())
+      .then((item) => {
+
+        let joke = item.joke;
+        speak(joke);
+        document.getElementById("text1").innerHTML = joke;
+        console.log(joke)
+        
+      });
+  }
+
 //module main to run all process..............................................................................................................
 
 
 
 window.addEventListener("load",()=>{
     
-    music();
-    speak("Initiating system");
+    // music();
+    // speak("Initiating system");
     speak("Activating jarvis");
-    wishMe();
-    startTime();
-    speak("Let me give a quick intro about me");
-    speak("Im jarvis ,An AI based voice assistant ");
-    speak(" I Can do many things such as Forecasting about weather, Opening Google , Wikipedia, instagram, facebook");
-    speak("I Can help you 24 hours and 7 Days a week");
-    weather();
+
+    // wishMe();
+    // startTime();
+    // speak("Let me give a quick intro about me");
+    // speak("Im jarvis ,An AI based voice assistant ");
+    // speak(" I Can do many things such as Forecasting about weather, Opening Google , Wikipedia, instagram, facebook");
+    // speak("I Can help you 24 hours and 7 Days a week");
+    // weather();
  
 
 
@@ -176,7 +196,9 @@ const recognition = new SpeechRecognition();                                    
 recognition.onresult = (event) => {
     const current = event.resultIndex;
     const transcript = event.results[current][0].transcript;
+    document.getElementById("text1").innerHTML = transcript;
     speakThis(transcript.toLowerCase());
+   
 }
 
 startButton.addEventListener('click', ()=>{
@@ -193,38 +215,48 @@ function speakThis(message) {
   
     if(message.includes('hey') || message.includes('hello')) {
 
-        document.getElementById("text1").innerHTML = message;
-        const finalText = "Hello Boss";
+        
+        const finalText = "Hello There";
         speech.text = finalText;
         document.getElementById("text2").innerHTML = finalText;
         console.log(message);
 
     }
 
+
     else if(message.includes('how are you')) {
         const finalText = "I am fine boss tell me how can i help you";
         speech.text = finalText;
+        document.getElementById("text2").innerHTML = finalText;
     }
 
     else if(message.includes('name')) {
         const finalText = "My name is jarvis";
         speech.text = finalText;
+        document.getElementById("text2").innerHTML = finalText;
     }
-
+    else if(message.includes('tell me a joke')) {
+        const finalText = "yep";
+        speech.text = finalText;
+        acquireJoke();
+        document.getElementById("text2").innerHTML = finalText;
+    }
     else if(message.includes('open google')) {
         window.open("https://google.com", "_blank");
         const finalText = "Opening Google";
         speech.text = finalText;
+        document.getElementById("text2").innerHTML = finalText;
     }
     else if(message.includes('what is weather') || message.includes('how is weather ')) {
         speech.text = "please wait";
         weather();
         console.log(message);
     } 
-    else if(message.includes('open instagram')) {
+    else if(message.includes('open instagram') || message.includes('check my instagram')) {
         window.open("https://instagram.com", "_blank");
         const finalText = "Opening instagram";
         speech.text = finalText;
+        document.getElementById("text2").innerHTML = finalText;
     }
    
 
@@ -232,6 +264,7 @@ function speakThis(message) {
         window.open(`https://www.google.com/search?q=${message.replace(" ", "+")}`, "_blank");
         const finalText = "This is what i found on internet regarding " + message;
         speech.text = finalText;
+        document.getElementById("text2").innerHTML = finalText;
     }
    
 
@@ -239,33 +272,38 @@ function speakThis(message) {
         window.open(`https://en.wikipedia.org/wiki/${message.replace("wikipedia", "")}`, "_blank");
         const finalText = "This is what i found on wikipedia regarding " + message;
         speech.text = finalText;
+        document.getElementById("text2").innerHTML = finalText;
     }
 
     else if(message.includes('time')) {
         const time = new Date().toLocaleString(undefined, {hour: "numeric", minute: "numeric"})
         const finalText = time;
         speech.text = finalText;
+        document.getElementById("text2").innerHTML = finalText;
     }
 
     else if(message.includes('date')) {
         const date = new Date().toLocaleString(undefined, {month: "short", day: "numeric"})
         const finalText = date;
         speech.text = finalText;
+        document.getElementById("text2").innerHTML = finalText;
     }
 
     else if(message.includes('calculator')) {
         window.open('Calculator:///')
         const finalText = "Opening Calculator";
         speech.text = finalText;
+        document.getElementById("text2").innerHTML = finalText;
     }
         
     else {
         window.open(`https://www.google.com/search?q=${message.replace(" ", "+")}`, "_blank");
         const finalText = "I found some information for " + message + " on google";
         speech.text = finalText;
+        document.getElementById("text2").innerHTML = finalText;
     
     }
-    speech.volume = 1;
+   
     speech.pitch = 2;
     speech.rate = 1;
 
@@ -333,4 +371,3 @@ function speakThis(message) {
 
 // getLocation();
 // location(lat,lng);
-
