@@ -235,6 +235,11 @@ function speakThis(message) {
         speech.text = finalText;
         document.getElementById("text2").innerHTML = finalText;
     }
+    else if(message.includes('what's up')) {
+        const finalText = "I'm having a good day";
+        speech.text = finalText;
+        document.getElementById("text2").innerHTML = finalText;
+    }
     else if(message.includes('tell me a joke')) {
         const finalText = "yep";
         speech.text = finalText;
