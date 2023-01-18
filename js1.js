@@ -2,11 +2,88 @@ const startButton = document.querySelector(".start");
 
 
 
-/*function tamil(){
-    var utterance = new SpeechSynthesisUtterance('உங்கள் பதிவு செயல்முறை நிறைவடைந்தது');
-    utterance.lang='ta-IN'; // for US english, en-GR for british
-    window.speechSynthesis.speak(utterance);
-}*/
+
+//module to speaktamil.............................................................................................................
+
+// To create a text to speech in Tamil, you will need to use the Web Speech API.
+
+//Create a new instance of the SpeechSynthesisUtterance object and set the lang attribute to 'ta', which is the language code for Tamil.
+function tamil(text){
+    
+    let utterance = new SpeechSynthesisUtterance();
+    utterance.lang = 'ta';
+
+    // Set the text that is to be spoken.
+    utterance.text = text;
+
+    // Use the speak() method of the SpeechSynthesisUtterance object to start the speech synthesis.
+    speechSynthesis.speak(utterance);
+
+}
+
+
+//module to translator.........................................................................................................
+
+// Create a function to translate text
+// Create a function that takes two parameters: text and language
+
+
+//Create a function to translate a given string into another language
+function translate(string, language) {
+    //Create an object to store the language codes
+    let languageCodes = {
+      en: 'English',
+      es: 'Spanish',
+      fr: 'French',
+      de: 'German',
+      it: 'Italian',
+      ja: 'Japanese',
+      ta: 'tamil'
+    };
+    //Check if the given language is a valid code
+    if (languageCodes[language]) {
+      //If valid, use the Google Translate API to translate the string
+      let url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${language}&dt=t&q=${string}`;
+      //Make the API request
+      fetch(url)
+        .then(res => res.json())
+        .then(data => {
+          //Log the translated string
+          console.log(`Translated string to ${languageCodes[language]}: ${data[0][0][0]}`);
+          tamil(data[0][0][0])
+        })
+        .catch(error => {
+          //Log an error if the request fails
+          console.log(`Error: ${error}`);
+        });
+    } else {
+      //Log an error if the language code is invalid
+      console.log('Error: Invalid language code');
+    }
+  }
+// Call the function with a string and language
+
+
+// function translator(text, language) {
+//     let translatedText;
+//     switch (language) {
+//         case 'en':
+//             translatedText = text;
+//             break;
+//         case 'ta':
+//             translatedText = google.language.translate(text, 'en', 'ta');
+//             break;
+//         case 'fr':
+//             translatedText = google.language.translate(text, 'en', 'fr');
+//             break;
+//         default:
+//             translatedText = text;
+//             break;
+//     }
+//      speak(translatedText);
+// }
+
+
 
 
 //module to speak.............................................................................................................
@@ -164,22 +241,28 @@ function acquireJoke() {
 
 window.addEventListener("load",()=>{
     
-    // music();
-    // speak("Initiating system");
+    music();
+    speak("Initiating system");
     speak("Activating jarvis");
+    
 
-    // wishMe();
-    // startTime();
-    // speak("Let me give a quick intro about me");
-    // speak("Im jarvis ,An AI based voice assistant ");
-    // speak(" I Can do many things such as Forecasting about weather, Opening Google , Wikipedia, instagram, facebook");
-    // speak("I Can help you 24 hours and 7 Days a week");
-    // weather();
+
+     wishMe();
+     startTime();
+     speak("Let me give a quick intro about me");
+     speak("Im jarvis ,An AI based voice assistant ");
+     speak(" I Can do many things such as Forecasting about weather, Opening Google , Wikipedia, instagram, facebook");
+     speak("I Can help you 24 hours and 7 Days a week");
+     weather();
+    translate('Im jarvis ,An AI based voice assistant ', 'ta'); 
+    
+    tamil();
  
 
 
 
    // tamil();
+    
 
 })
 
@@ -235,11 +318,6 @@ function speakThis(message) {
         speech.text = finalText;
         document.getElementById("text2").innerHTML = finalText;
     }
-    else if(message.includes('what's up')) {
-        const finalText = "I'm having a good day";
-        speech.text = finalText;
-        document.getElementById("text2").innerHTML = finalText;
-    }
     else if(message.includes('tell me a joke')) {
         const finalText = "yep";
         speech.text = finalText;
@@ -271,8 +349,7 @@ function speakThis(message) {
         speech.text = finalText;
         document.getElementById("text2").innerHTML = finalText;
     }
-   
-
+    
     else if(message.includes('wikipedia')) {
         window.open(`https://en.wikipedia.org/wiki/${message.replace("wikipedia", "")}`, "_blank");
         const finalText = "This is what i found on wikipedia regarding " + message;
@@ -376,3 +453,5 @@ function speakThis(message) {
 
 // getLocation();
 // location(lat,lng);
+
+
