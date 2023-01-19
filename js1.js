@@ -8,11 +8,15 @@ const startButton = document.querySelector(".start");
 // To create a text to speech in Tamil, you will need to use the Web Speech API.
 
 //Create a new instance of the SpeechSynthesisUtterance object and set the lang attribute to 'ta', which is the language code for Tamil.
-function tamil(text){
+function speakTamil(text){
     
     let utterance = new SpeechSynthesisUtterance();
     utterance.lang = 'ta';
+
+    // Set the text that is to be spoken.
     utterance.text = text;
+
+    // Use the speak() method of the SpeechSynthesisUtterance object to start the speech synthesis.
     speechSynthesis.speak(utterance);
 
 }
@@ -88,7 +92,7 @@ function translate(string, language) {
       console.log('Error: Invalid language code');
     }
   }
-
+// Call the function with a string and language
 
 
 // function translator(text, language) {
@@ -309,6 +313,37 @@ function acquireJoke() {
       });
   }
 
+
+//module to speak in tamil.................................................................................................................
+
+function Tamil(message){
+
+    var finalText = "";
+
+    if(message.includes('do you know tamil')||(message.includes("do you speak tamil"))){
+        finalText = "எனக்கு தமிழ் கொஞ்சம் கொஞ்சம் தெரியும்";   
+    }
+
+    else if(message.includes("talking tamil")||(message.includes("talk in tamil"))||(message.includes("speak in tamil"))){
+        finalText="வணக்கம் நான் ஜார்விஸ், நான் ஒரு செயற்கை நுண்ணறிவு"   
+    }
+
+    else if(message.includes("do you understand tamil")){
+        finalText="என்னால் பேச முடியும், ஆனால் கேட்க முடியாது"
+    }
+    else if(message.includes("how did you know tamil")){
+        finalText="என்னை உருவாக்கியவர், எனக்கு கற்று தந்தார்"
+    }
+
+    else{
+        finalText="எனக்கு  தமிழில் ஆனா ஆவன மட்டுமே தெரியும்"
+    }
+
+    document.getElementById("text2").innerHTML = finalText;
+    speakTamil(finalText) 
+}
+
+
 //module main to run all process..............................................................................................................
 
 
@@ -318,18 +353,18 @@ window.addEventListener("load",()=>{
     // music();
     // speak("Initiating system");
     speak("Activating jarvis");
-    translate('Im jarvis ,An AI based voice assistant ', 'ta'); // Hola mundo
-    //      not-working because of browser-----           femaleVoice("Im jarvis ,An AI based voice assistant ","ta")
+    //translate('Im jarvis ,An AI based voice assistant ', 'ta'); // Hola mundo
+    femaleVoice("Im jarvis ,An AI based voice assistant ","ta")
     //tamil();
 
 
-    wishMe();
-    startTime();
-    speak("Let me give a quick intro about me");
-    speak("Im jarvis ,An AI based voice assistant ");
-    speak(" I Can do many things such as Forecasting about weather, Opening Google , Wikipedia, instagram, facebook");
-    speak("I Can help you 24 hours and 7 Days a week");
-    weather();
+    // wishMe();
+    // startTime();
+    // speak("Let me give a quick intro about me");
+    // speak("Im jarvis ,An AI based voice assistant ");
+    // speak(" I Can do many things such as Forecasting about weather, Opening Google , Wikipedia, instagram, facebook");
+    // speak("I Can help you 24 hours and 7 Days a week");
+    // weather();
  
 
 
@@ -349,15 +384,18 @@ const recognition = new SpeechRecognition();                                    
 //recognition.maxAlternative=1;
 
 recognition.onresult = (event) => {
+    
     const current = event.resultIndex;
     const transcript = event.results[current][0].transcript;
     document.getElementById("text1").innerHTML = transcript;
     speakThis(transcript.toLowerCase());
+    console.log("recognition end")
    
 }
 
 startButton.addEventListener('click', ()=>{
     recognition.start();
+    console.log("event call")
 })
 
 
@@ -378,16 +416,17 @@ function speakThis(message) {
 
     }
 
+    else if(message.includes('tamil')) {
+        Tamil(message)
+
+    }
+
+    
+    
 
     else if(message.includes('how are you')) {
         const finalText = "I am fine boss tell me how can i help you";
         speech.text = finalText;
-        document.getElementById("text2").innerHTML = finalText;
-    }
-
-    else if(message.includes('do you know tamil')) {
-        const finalText = "எனக்கு தமிழ் கொஞ்சம் கொஞ்சம் தெரியும்";
-        tamil(finalText)
         document.getElementById("text2").innerHTML = finalText;
     }
 
@@ -486,6 +525,9 @@ function speakThis(message) {
 }
 
 
+
+
+
 //module to speak general things ...............................................................................................................
 
 
@@ -507,6 +549,8 @@ function speakThis(message) {
 //     div = "Latitude: " + position.coords.latitude + "Longitude: " + position.coords.longitude;
 //     var lat = position.coords.latitude;
 //     let lng = position.coords.longitude;
+
+
 
 
 // console.log(div);
