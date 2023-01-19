@@ -1,8 +1,8 @@
 # jarvis
-web based voice assisstant
+web based voice assisstant using java
 
 Now it can also display the convo... 
 
 
-On consturction....
+on consturction work....
 
