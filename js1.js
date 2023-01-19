@@ -12,14 +12,41 @@ function tamil(text){
     
     let utterance = new SpeechSynthesisUtterance();
     utterance.lang = 'ta';
-
-    // Set the text that is to be spoken.
     utterance.text = text;
-
-    // Use the speak() method of the SpeechSynthesisUtterance object to start the speech synthesis.
     speechSynthesis.speak(utterance);
 
 }
+
+//module to translatorinto.........................................................................................................
+
+
+function isWordPresent(sentence)
+{
+	// To break the sentence in words
+	let s = sentence.split(" ");
+    console.log(s);
+
+	// To temporarily store each individual word
+	for ( let temp=0;temp<s.length;temp++)
+	{
+
+		// Comparing the current word
+		// with the word to be searched
+		if (s[temp] == "translate" )
+		{
+			s[temp]=+1;
+            console.log(s)
+		}
+	}
+
+}
+
+
+
+
+
+
+
 
 
 //module to translator.........................................................................................................
@@ -61,7 +88,7 @@ function translate(string, language) {
       console.log('Error: Invalid language code');
     }
   }
-// Call the function with a string and language
+
 
 
 // function translator(text, language) {
@@ -83,8 +110,55 @@ function translate(string, language) {
 //      speak(translatedText);
 // }
 
+//module to female voice......................................................................................................
 
+function femaleVoice(){
+      
+    if (window.speechSynthesis.getVoices().length === 0) {
+      
+        window.speechSynthesis.addEventListener('voiceschanged', function() {
+            var voices = window.speechSynthesis.getVoices();
 
+           
+            var femaleVoice;
+            for (var i = 0; i < voices.length; i++) {
+                if (voices[i].gender === 'female') {
+                    femaleVoice = voices[i];
+                    break;
+                }
+            }
+
+            if(femaleVoice){
+              
+                var utterance = new SpeechSynthesisUtterance(); 
+                utterance.text = "Hello, how are you?";
+                utterance.voice = femaleVoice;
+                window.speechSynthesis.speak(utterance);
+            } else {
+                console.log("No female voice found")
+            }
+        });
+    } else {
+        var voices = window.speechSynthesis.getVoices();
+        var femaleVoice;
+        for (var i = 0; i < voices.length; i++) {
+            if (voices[i].gender === 'female') {
+                femaleVoice = voices[i];
+                break;
+            }
+        }
+
+        if(femaleVoice){
+           
+            var utterance = new SpeechSynthesisUtterance();
+            utterance.text = "Hello, how are you?";
+            utterance.voice = femaleVoice;
+            window.speechSynthesis.speak(utterance);
+        } else {
+            console.log("No female voice found")
+        }
+    }
+}
 
 //module to speak.............................................................................................................
 
@@ -209,7 +283,7 @@ function weather(){
 
     speak("The weather of your state is"+ temp);
     speak("And its feels like a "+ feels_like);
-
+    document.getElementById("text2").innerHTML = temp ;
 
 });
 }
@@ -241,28 +315,26 @@ function acquireJoke() {
 
 window.addEventListener("load",()=>{
     
-    music();
-    speak("Initiating system");
+    // music();
+    // speak("Initiating system");
     speak("Activating jarvis");
-    
+    translate('Im jarvis ,An AI based voice assistant ', 'ta'); // Hola mundo
+    //      not-working because of browser-----           femaleVoice("Im jarvis ,An AI based voice assistant ","ta")
+    //tamil();
 
 
-     wishMe();
-     startTime();
-     speak("Let me give a quick intro about me");
-     speak("Im jarvis ,An AI based voice assistant ");
-     speak(" I Can do many things such as Forecasting about weather, Opening Google , Wikipedia, instagram, facebook");
-     speak("I Can help you 24 hours and 7 Days a week");
-     weather();
-    translate('Im jarvis ,An AI based voice assistant ', 'ta'); 
-    
-    tamil();
+    wishMe();
+    startTime();
+    speak("Let me give a quick intro about me");
+    speak("Im jarvis ,An AI based voice assistant ");
+    speak(" I Can do many things such as Forecasting about weather, Opening Google , Wikipedia, instagram, facebook");
+    speak("I Can help you 24 hours and 7 Days a week");
+    weather();
  
 
 
 
    // tamil();
-    
 
 })
 
@@ -271,8 +343,8 @@ window.addEventListener("load",()=>{
 
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 const recognition = new SpeechRecognition();                                                  //assign a varibable to speech recoginition
-//recognition.continous = false;                                     //set the mic to false default ,so it will turn on only if  we call
-//recognition.lang = "en-US";                                       //set languange
+//recognition.continous = false;                                      //set the mic to false default ,so it will turn on only if  we call
+//recognition.lang = "en-US";                                         //set languange
 //recognition.interimResult=false;                                    //to get the word accuracy
 //recognition.maxAlternative=1;
 
@@ -293,7 +365,7 @@ startButton.addEventListener('click', ()=>{
 function speakThis(message) {
     const speech = new SpeechSynthesisUtterance();
 
-    speech.text = "I did not understand what you said please try again";
+    speech.text = "";
 
   
     if(message.includes('hey') || message.includes('hello')) {
@@ -313,28 +385,46 @@ function speakThis(message) {
         document.getElementById("text2").innerHTML = finalText;
     }
 
+    else if(message.includes('do you know tamil')) {
+        const finalText = "எனக்கு தமிழ் கொஞ்சம் கொஞ்சம் தெரியும்";
+        tamil(finalText)
+        document.getElementById("text2").innerHTML = finalText;
+    }
+
+
     else if(message.includes('name')) {
         const finalText = "My name is jarvis";
         speech.text = finalText;
         document.getElementById("text2").innerHTML = finalText;
     }
+
+    // else if(message.includes('tanslate into')||message.includes('meaning in')) {
+        
+    //     isWordPresent(message);
+    //     speech.text = finalText;
+    //     document.getElementById("text2").innerHTML = finalText;
+    // }
+
     else if(message.includes('tell me a joke')) {
         const finalText = "yep";
         speech.text = finalText;
         acquireJoke();
         document.getElementById("text2").innerHTML = finalText;
     }
+
     else if(message.includes('open google')) {
         window.open("https://google.com", "_blank");
         const finalText = "Opening Google";
         speech.text = finalText;
         document.getElementById("text2").innerHTML = finalText;
     }
+
     else if(message.includes('what is weather') || message.includes('how is weather ')) {
         speech.text = "please wait";
         weather();
         console.log(message);
     } 
+
     else if(message.includes('open instagram') || message.includes('check my instagram')) {
         window.open("https://instagram.com", "_blank");
         const finalText = "Opening instagram";
@@ -396,9 +486,6 @@ function speakThis(message) {
 }
 
 
-
-
-
 //module to speak general things ...............................................................................................................
 
 
@@ -420,8 +507,6 @@ function speakThis(message) {
 //     div = "Latitude: " + position.coords.latitude + "Longitude: " + position.coords.longitude;
 //     var lat = position.coords.latitude;
 //     let lng = position.coords.longitude;
-
-
 
 
 // console.log(div);
@@ -453,5 +538,4 @@ function speakThis(message) {
 
 // getLocation();
 // location(lat,lng);
-
 
