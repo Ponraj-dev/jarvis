@@ -334,6 +334,9 @@ function Tamil(message){
     else if(message.includes("how did you know tamil")){
         finalText="என்னை உருவாக்கியவர், எனக்கு கற்று தந்தார்"
     }
+    else if(message.includes("say in tamil")){
+        finalText="இந்த நகைச்சுவையை தவிர்த்துக்கொல்லலாம்"
+    }
 
     else{
         finalText="எனக்கு  தமிழில் ஆனா ஆவன மட்டுமே தெரியும்"
@@ -418,14 +421,18 @@ function speakThis(message) {
 
     else if(message.includes('tamil')) {
         Tamil(message)
-
     }
 
-    
-    
 
-    else if(message.includes('how are you')) {
-        const finalText = "I am fine boss tell me how can i help you";
+    else if(message.includes('how are you')||(message.includes("how is life"))||(message.includes("how was the day man"))) {
+        const words = ["Im good","Im fine", "Pretty good", "Im well","Im OK", "Not too bad.", "Yeah, all right", " Very well, thanks", "I’ve been better",
+        "Like you, but better", "Happy and content, thank you", "Going great. Hope this status quo persists for rest of the day","I am blessed!",
+        "Way better than I deserve!"," Im doing really well.",
+        "Surviving, I guess"
+ 
+     ];
+        const finalText = words[Math.floor(Math.random() * words.length)];
+        console.log(finalText)
         speech.text = finalText;
         document.getElementById("text2").innerHTML = finalText;
     }
@@ -582,4 +589,7 @@ function speakThis(message) {
 
 // getLocation();
 // location(lat,lng);
+
+
+
 
