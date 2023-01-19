@@ -405,6 +405,7 @@ startButton.addEventListener('click', ()=>{
 
 function speakThis(message) {
     const speech = new SpeechSynthesisUtterance();
+    
 
     speech.text = "";
 
@@ -455,8 +456,16 @@ function speakThis(message) {
         const finalText = "yep";
         speech.text = finalText;
         acquireJoke();
-        document.getElementById("text2").innerHTML = finalText;
+       
     }
+    else if(message.includes('its not funny')||(message.includes("the joke is not funny"))) {
+        const finalText = "yep ,i can do even better ask me again";
+        document.getElementById("text2").innerHTML = finalText;
+        speech.text = finalText;
+        acquireJoke();
+       
+    }
+
 
     else if(message.includes('open google')) {
         window.open("https://google.com", "_blank");
@@ -584,12 +593,8 @@ function speakThis(message) {
 //         }
 //     });
   
-
 // }
 
 // getLocation();
 // location(lat,lng);
-
-
-
 
