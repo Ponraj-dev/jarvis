@@ -346,9 +346,26 @@ function Tamil(message){
     speakTamil(finalText) 
 }
 
+function battery(){
+    navigator.getBattery().then(function(battery) {
+
+        var level = Math.ceil(battery.level*100);
+        let hr = parseInt(battery.dischargingTime / 3600);
+        let min = parseInt(battery.dischargingTime / 60 - hr * 60);
+        speak("your system has "+ level+ "percentage of charge")
+        speak("and i think it would be available on"+ hr+"hours"+min+"minutes")
+        document.getElementById("text2").innerHTML = level;
+        console.log(hr,min)
+
+    });
+
+
+
+
+}
+
 
 //module main to run all process..............................................................................................................
-
 
 
 window.addEventListener("load",()=>{
@@ -358,11 +375,12 @@ window.addEventListener("load",()=>{
     speak("Activating jarvis");
     //translate('Im jarvis ,An AI based voice assistant ', 'ta'); // Hola mundo
     femaleVoice("Im jarvis ,An AI based voice assistant ","ta")
+    //battery();
     //tamil();
 
 
     // wishMe();
-    // startTime();
+     startTime();
     // speak("Let me give a quick intro about me");
     // speak("Im jarvis ,An AI based voice assistant ");
     // speak(" I Can do many things such as Forecasting about weather, Opening Google , Wikipedia, instagram, facebook");
@@ -422,6 +440,9 @@ function speakThis(message) {
 
     else if(message.includes('tamil')) {
         Tamil(message)
+    }
+    else if(message.includes('battery status')||(message.includes("percentage"))) {
+        battery()
     }
 
 
@@ -487,14 +508,6 @@ function speakThis(message) {
         document.getElementById("text2").innerHTML = finalText;
     }
    
-
-    else if(message.includes('what is') || message.includes('who is') || message.includes('what are')) {
-        window.open(`https://www.google.com/search?q=${message.replace(" ", "+")}`, "_blank");
-        const finalText = "This is what i found on internet regarding " + message;
-        speech.text = finalText;
-        document.getElementById("text2").innerHTML = finalText;
-    }
-    
     else if(message.includes('wikipedia')) {
         window.open(`https://en.wikipedia.org/wiki/${message.replace("wikipedia", "")}`, "_blank");
         const finalText = "This is what i found on wikipedia regarding " + message;
@@ -505,7 +518,7 @@ function speakThis(message) {
     else if(message.includes('time')) {
         const time = new Date().toLocaleString(undefined, {hour: "numeric", minute: "numeric"})
         const finalText = time;
-        speech.text = finalText;
+        startTime();
         document.getElementById("text2").innerHTML = finalText;
     }
 
@@ -519,6 +532,12 @@ function speakThis(message) {
     else if(message.includes('calculator')) {
         window.open('Calculator:///')
         const finalText = "Opening Calculator";
+        speech.text = finalText;
+        document.getElementById("text2").innerHTML = finalText;
+    }
+    else if(message.includes('what is') || message.includes('who is') || message.includes('what are')) {
+        window.open(`https://www.google.com/search?q=${message.replace(" ", "+")}`, "_blank");
+        const finalText = "This is what i found on internet regarding " + message;
         speech.text = finalText;
         document.getElementById("text2").innerHTML = finalText;
     }
@@ -539,9 +558,6 @@ function speakThis(message) {
     window.speechSynthesis.speak(speech);
 
 }
-
-
-
 
 
 //module to speak general things ...............................................................................................................
@@ -565,9 +581,6 @@ function speakThis(message) {
 //     div = "Latitude: " + position.coords.latitude + "Longitude: " + position.coords.longitude;
 //     var lat = position.coords.latitude;
 //     let lng = position.coords.longitude;
-
-
-
 
 // console.log(div);
 // }
@@ -593,6 +606,7 @@ function speakThis(message) {
 //         }
 //     });
   
+
 // }
 
 // getLocation();
