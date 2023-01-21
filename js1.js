@@ -21,10 +21,10 @@ function speakTamil(text){
 
 }
 
-//module to translatorinto.........................................................................................................
+//module to identification.........................................................................................................
 
 
-function isWordPresent(sentence)
+function userName(sentence)
 {
 	// To break the sentence in words
 	let s = sentence.split(" ");
@@ -34,15 +34,22 @@ function isWordPresent(sentence)
 	for ( let temp=0;temp<s.length;temp++)
 	{
 
-		// Comparing the current word
-		// with the word to be searched
-		if (s[temp] == "translate" )
-		{
-			s[temp]=+1;
-            console.log(s)
-		}
-	}
+			var name= s[temp]
+            if(s.includes("name")&&s.includes("my")){
+                if(name=="is")
+                {
+                    name=s[temp + 1];
+                    speak("hello "+ name +" nice to meet you ")
+                }}
 
+            else if( name=="I"){
+                name=s[temp+2]
+                speak("hello "+ name +" nice to meet you ")
+                }
+            
+	}
+    
+    console.log(name)
 }
 
 
@@ -287,9 +294,10 @@ function weather(){
 
     speak("The weather of your state is"+ temp);
     speak("And its feels like a "+ feels_like);
-    document.getElementById("text2").innerHTML = temp ;
+    
 
 });
+
 }
 
 
@@ -346,6 +354,8 @@ function Tamil(message){
     speakTamil(finalText) 
 }
 
+//module for battery ***************************************************************************************************************************************
+
 function battery(){
     navigator.getBattery().then(function(battery) {
 
@@ -372,20 +382,21 @@ window.addEventListener("load",()=>{
     
     // music();
     // speak("Initiating system");
-    speak("Activating jarvis");
-    //translate('Im jarvis ,An AI based voice assistant ', 'ta'); // Hola mundo
-    femaleVoice("Im jarvis ,An AI based voice assistant ","ta")
-    //battery();
-    //tamil();
+    // speak("Activating jarvis");
+    // //translate('Im jarvis ,An AI based voice assistant ', 'ta'); // Hola mundo
+    // //femaleVoice("Im jarvis ,An AI based voice assistant ","ta")
+    // //battery();
+   
+    wishMe();
+    userName("i am ponraj");
 
-
-    // wishMe();
-     startTime();
+    // startTime();
     // speak("Let me give a quick intro about me");
     // speak("Im jarvis ,An AI based voice assistant ");
     // speak(" I Can do many things such as Forecasting about weather, Opening Google , Wikipedia, instagram, facebook");
     // speak("I Can help you 24 hours and 7 Days a week");
     // weather();
+    
  
 
 
@@ -427,26 +438,20 @@ function speakThis(message) {
 
     speech.text = "";
 
-  
-    if(message.includes('hey') || message.includes('hello')) {
-
-        
-        const finalText = "Hello There";
-        speech.text = finalText;
-        document.getElementById("text2").innerHTML = finalText;
-        console.log(message);
-
-    }
-
-    else if(message.includes('tamil')) {
+    if(message.includes('tamil')) {
         Tamil(message)
     }
+
     else if(message.includes('battery status')||(message.includes("percentage"))) {
         battery()
     }
 
+    else if(message.includes('my name is')||(message.includes("I am"))) {
+        userName(message)
+    }
 
     else if(message.includes('how are you')||(message.includes("how is life"))||(message.includes("how was the day man"))) {
+
         const words = ["Im good","Im fine", "Pretty good", "Im well","Im OK", "Not too bad.", "Yeah, all right", " Very well, thanks", "I’ve been better",
         "Like you, but better", "Happy and content, thank you", "Going great. Hope this status quo persists for rest of the day","I am blessed!",
         "Way better than I deserve!"," Im doing really well.",
@@ -461,8 +466,16 @@ function speakThis(message) {
 
 
     else if(message.includes('name')) {
-        const finalText = "My name is jarvis";
-        speech.text = finalText;
+
+        if(message.includes("your name"))
+        {
+            var finalText = "My name is jarvis";
+        }
+        else if(message.includes("my name")){
+            var finalText = "sorry i don't remember who you are";
+        }
+        speak(finalText)
+        
         document.getElementById("text2").innerHTML = finalText;
     }
 
@@ -498,6 +511,7 @@ function speakThis(message) {
     else if(message.includes('what is weather') || message.includes('how is weather ')) {
         speech.text = "please wait";
         weather();
+        document.getElementById("text2").innerHTML =  temp;
         console.log(message);
     } 
 
@@ -541,6 +555,13 @@ function speakThis(message) {
         speech.text = finalText;
         document.getElementById("text2").innerHTML = finalText;
     }
+      
+    else if(message.includes('hey') || message.includes('hello')) {
+        const finalText = "Hello There";
+        speech.text = finalText;
+        document.getElementById("text2").innerHTML = finalText;
+        console.log(message);
+    }
         
     else {
         window.open(`https://www.google.com/search?q=${message.replace(" ", "+")}`, "_blank");
@@ -558,6 +579,9 @@ function speakThis(message) {
     window.speechSynthesis.speak(speech);
 
 }
+
+
+
 
 
 //module to speak general things ...............................................................................................................
@@ -581,6 +605,9 @@ function speakThis(message) {
 //     div = "Latitude: " + position.coords.latitude + "Longitude: " + position.coords.longitude;
 //     var lat = position.coords.latitude;
 //     let lng = position.coords.longitude;
+
+
+
 
 // console.log(div);
 // }
@@ -611,4 +638,5 @@ function speakThis(message) {
 
 // getLocation();
 // location(lat,lng);
+
 
