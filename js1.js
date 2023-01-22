@@ -21,6 +21,28 @@ function speakTamil(text){
 
 }
 
+//module to splitewords...................................................................................................................
+
+function splitewords(sentence){
+    let s = sentence.split(" ");
+    console.log(s);
+
+    for ( let l=0;l<s.length;l++)
+	{
+
+			var name= s[l]
+            if(name=="of"){
+            name=s[l + 1];
+
+        }
+       
+    }
+    return name
+
+
+}
+
+
 //module to identification.........................................................................................................
 
 
@@ -39,25 +61,32 @@ function userName(sentence)
                 if(name=="is")
                 {
                     name=s[temp + 1];
-                    speak("hello "+ name +" nice to meet you ")
+                  speak("hello "+ name +" nice to meet you ")
                 }}
 
-            else if( name=="I"){
+            else if(s.includes("I")){
                 name=s[temp+2]
                 speak("hello "+ name +" nice to meet you ")
-                }
+            }
             
 	}
-    
     console.log(name)
 }
 
+//module for local storage.....................................................................................................
 
 
+function localStoragenew(){
+        // Store an object in local storage
+    var obj = { name: "John", age: 30 };
+    localStorage.setItem("user", JSON.stringify(obj));
 
+    // Retrieve the object from local storage
+    var user = JSON.parse(localStorage.getItem("user"));
+    console.log(user.name); // Output: "John"
+    console.log(user.age); // Output: 30
 
-
-
+    }
 
 
 //module to translator.........................................................................................................
@@ -88,7 +117,7 @@ function translate(string, language) {
         .then(data => {
           //Log the translated string
           console.log(`Translated string to ${languageCodes[language]}: ${data[0][0][0]}`);
-          tamil(data[0][0][0])
+          speakTamil(data[0][0][0])
         })
         .catch(error => {
           //Log an error if the request fails
@@ -284,16 +313,22 @@ function wishMe(){
 
 //weather module............................................................................................................................
 
-function weather(){
-    let name="tirunelveli";
-    fetch("https://api.openweathermap.org/data/2.5/weather?q=" + name + "&appid=e254e72d1b2007525c7fc950da4ff4ad&units=metric").then((e)=>{
+function weather(name){
+  
+    let cityname= name;
+    fetch("https://api.openweathermap.org/data/2.5/weather?q=" + cityname + "&appid=e254e72d1b2007525c7fc950da4ff4ad&units=metric").then((e)=>{
         return e.json();
     }).then(function (data){
     let temp = data.main.temp;
     let feels_like = data.main.feels_like;
-
+    
+    
     speak("The weather of your state is"+ temp);
     speak("And its feels like a "+ feels_like);
+
+    translate("The weather of your state is"+ temp,'ta')
+  
+    document.getElementById("text2").innerHTML =  temp;
     
 
 });
@@ -375,30 +410,35 @@ function battery(){
 }
 
 
+
+
+
+
+
+
+
 //module main to run all process..............................................................................................................
 
-
 window.addEventListener("load",()=>{
-    
-    // music();
-    // speak("Initiating system");
-    // speak("Activating jarvis");
-    // //translate('Im jarvis ,An AI based voice assistant ', 'ta'); // Hola mundo
-    // //femaleVoice("Im jarvis ,An AI based voice assistant ","ta")
-    // //battery();
+
+//     music();
+//     speak("Initiating system");
+//     speak("Activating jarvis");
+//     //translate('Im jarvis ,An AI based voice assistant ', 'ta'); // Hola mundo
+//     //femaleVoice("Im jarvis ,An AI based voice assistant ","ta")
+//     //battery();
    
-    wishMe();
-    userName("i am ponraj");
-
-    // startTime();
-    // speak("Let me give a quick intro about me");
-    // speak("Im jarvis ,An AI based voice assistant ");
-    // speak(" I Can do many things such as Forecasting about weather, Opening Google , Wikipedia, instagram, facebook");
-    // speak("I Can help you 24 hours and 7 Days a week");
-    // weather();
+//     wishMe();
+//    // userName("i am ponraj") ;
+//     //localStoragenew();
     
- 
 
+//     startTime();
+//     speak("Let me give a quick intro about me");
+//     speak("Im jarvis ,An AI based voice assistant ");
+//     speak(" I Can do many things such as Forecasting about weather, Opening Google , Wikipedia, instagram, facebook");
+//     speak("I Can help you 24 hours and 7 Days a week");
+//     weather();
 
 
    // tamil();
@@ -438,11 +478,8 @@ function speakThis(message) {
 
     speech.text = "";
 
-    if(message.includes('tamil')) {
-        Tamil(message)
-    }
 
-    else if(message.includes('battery status')||(message.includes("percentage"))) {
+    if(message.includes('battery status')||(message.includes("percentage"))) {
         battery()
     }
 
@@ -508,11 +545,14 @@ function speakThis(message) {
         document.getElementById("text2").innerHTML = finalText;
     }
 
-    else if(message.includes('what is weather') || message.includes('how is weather ')) {
+    else if(message.includes('weather') || message.includes('temperature')) {
+        
+
         speech.text = "please wait";
-        weather();
-        document.getElementById("text2").innerHTML =  temp;
-        console.log(message);
+        var word=splitewords(message)
+        weather(word)
+    
+        console.log(word);
     } 
 
     else if(message.includes('open instagram') || message.includes('check my instagram')) {
@@ -555,7 +595,11 @@ function speakThis(message) {
         speech.text = finalText;
         document.getElementById("text2").innerHTML = finalText;
     }
-      
+    
+    else if(message.includes('tamil')) {
+        Tamil(message)
+    }
+
     else if(message.includes('hey') || message.includes('hello')) {
         const finalText = "Hello There";
         speech.text = finalText;
@@ -582,12 +626,14 @@ function speakThis(message) {
 
 
 
-
-
 //module to speak general things ...............................................................................................................
 
 
 //module to get location........................................................................................................................
+
+
+
+
 
 // var div  = "location";
 // function getLocation() {
@@ -638,5 +684,4 @@ function speakThis(message) {
 
 // getLocation();
 // location(lat,lng);
-
 
