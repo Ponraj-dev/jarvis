@@ -30,11 +30,14 @@ function splitewords(sentence){
     for ( let l=0;l<s.length;l++)
 	{
 
-			var name= s[l]
+		var name= s[l]
             if(name=="of"){
             name=s[l + 1];
+            }
+            else if(name=="into"){
+                name=s[l-1];
+            }
 
-        }
        
     }
     return name
@@ -684,4 +687,3 @@ function speakThis(message) {
 
 // getLocation();
 // location(lat,lng);
-
