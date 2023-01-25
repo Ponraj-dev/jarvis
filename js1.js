@@ -31,18 +31,17 @@ function splitewords(sentence){
 	{
 
 		var name= s[l]
-            if(name=="of"){
+            if(name=="of"||name=="in"|| name=="on"||name=="at"){
             name=s[l + 1];
             }
             else if(name=="into"){
                 name=s[l-1];
             }
+            
 
        
     }
     return name
-
-
 }
 
 
@@ -316,9 +315,12 @@ function wishMe(){
 
 //weather module............................................................................................................................
 
-function weather(name){
-  
+function weather(message){
+
+   
+    var name=splitewords(message)
     let cityname= name;
+
     fetch("https://api.openweathermap.org/data/2.5/weather?q=" + cityname + "&appid=e254e72d1b2007525c7fc950da4ff4ad&units=metric").then((e)=>{
         return e.json();
     }).then(function (data){
@@ -549,11 +551,8 @@ function speakThis(message) {
     }
 
     else if(message.includes('weather') || message.includes('temperature')) {
-        
-
         speech.text = "please wait";
-        var word=splitewords(message)
-        weather(word)
+        weather(message)
     
         console.log(word);
     } 
@@ -687,3 +686,4 @@ function speakThis(message) {
 
 // getLocation();
 // location(lat,lng);
+
