@@ -63,7 +63,7 @@ function userName(sentence)
                 if(name=="is")
                 {
                     name=s[temp + 1];
-                  speak("hello "+ name +" nice to meet you ")
+                    
                 }}
 
             else if(s.includes("I")){
@@ -72,7 +72,8 @@ function userName(sentence)
             }
             
 	}
-    console.log(name)
+   
+    return name
 }
 
 //module for local storage.....................................................................................................
@@ -133,24 +134,7 @@ function translate(string, language) {
 // Call the function with a string and language
 
 
-// function translator(text, language) {
-//     let translatedText;
-//     switch (language) {
-//         case 'en':
-//             translatedText = text;
-//             break;
-//         case 'ta':
-//             translatedText = google.language.translate(text, 'en', 'ta');
-//             break;
-//         case 'fr':
-//             translatedText = google.language.translate(text, 'en', 'fr');
-//             break;
-//         default:
-//             translatedText = text;
-//             break;
-//     }
-//      speak(translatedText);
-// }
+
 
 //module to female voice......................................................................................................
 
@@ -414,6 +398,69 @@ function battery(){
 
 }
 
+//recheck message.............................................................................................................................
+
+
+function recheck(message){
+  
+    var count = 0 ;
+    if(message == localStorage.getItem("oldMessage")){
+    
+        if (localStorage.getItem("count")>3){
+            speak("how long would you ask the same question");
+            speak("you can ask me about weather , temperature ,and talk in tamil");
+            speak("any ways");
+            speakThis(message);
+    
+
+            console.log('repeat')
+        }
+        else if(localStorage.getItem("count")<=3)
+        {
+            count=localStorage.getItem("count");
+            count=count+1;
+            newcount=localStorage.setItem("count",count);
+            localStorage.setItem("oldMessage",message);
+            speakThis(message);
+            
+           
+            console.log(count)
+    
+        }
+    }    
+    else if(message!=localStorage.getItem("oldMessage")){
+       
+        count=localStorage.setItem("count",count);
+        localStorage.setItem("oldMessage",message)
+        speakThis(message);
+        console.log(count)
+       
+        //speakThis(message)
+    }
+
+    else{
+        localStorage.setItem("count",count);
+        localStorage.setItem("oldMessage",message)
+        console.log("not count")
+
+    }
+
+    
+   
+    // if(message == localStorage.getItem("oldMessage")){
+    //         speak("how long would you ask the same question")
+    //         speak("you can ask me about weather , temperature ,and talk in tamil")
+    //         speak("any ways")
+    //         speakThis(message)
+    // }
+
+    // else if(message!=localStorage.getItem("oldMessage")){
+    //     //count=count+1;
+    //     speakThis(message)
+    // }
+    // localStorage.setItem("oldMessage",message)
+
+}
 
 
 
@@ -465,7 +512,8 @@ recognition.onresult = (event) => {
     const current = event.resultIndex;
     const transcript = event.results[current][0].transcript;
     document.getElementById("text1").innerHTML = transcript;
-    speakThis(transcript.toLowerCase());
+    recheck(transcript.toLowerCase())
+   // speakThis(transcript.toLowerCase());
     console.log("recognition end")
    
 }
@@ -486,10 +534,7 @@ function speakThis(message) {
 
     if(message.includes('battery status')||(message.includes("percentage"))) {
         battery()
-    }
 
-    else if(message.includes('my name is')||(message.includes("I am"))) {
-        userName(message)
     }
 
     else if(message.includes('how are you')||(message.includes("how is life"))||(message.includes("how was the day man"))) {
@@ -513,11 +558,17 @@ function speakThis(message) {
         {
             var finalText = "My name is jarvis";
         }
-        else if(message.includes("my name")){
-            var finalText = "sorry i don't remember who you are";
+        else if(message.includes('what is my name')||(message.includes("do you remember my name"))) {
+            
+            finalText="you said your name is "+localStorage.getItem("username");
+    
+        }
+        else if(message.includes('my name is')||(message.includes("I am"))) {
+            finalText="hello "+userName(message)+" nice to meet you ";
+            localStorage.setItem("username",userName(message));
+            
         }
         speak(finalText)
-        
         document.getElementById("text2").innerHTML = finalText;
     }
 
