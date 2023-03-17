@@ -5,24 +5,56 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
 </head>
 <body>
+    <header>
+        
+            <a href="./about.html">
+            <img src="./assets/asp.png" alt="asp"></a>
+            <img src="./assets/Picsart_23-02-26_16-16-35-496.png" alt="jarvis" class="logo">
+    </header>
+    <div class="container">
+        <div class="lcol">
+            <img src="./assets/giphy.gif" alt="jarvis" id="myGif">
+        </div>
+        <div class="rcol">
+            <div class="convo">
+            <div>
+                <p id="text1" onclick="speakThis()"> hey jarvis</p>
+                 </div>
+            <div>     
+               <p id="text2" onclick="speakThis()">How can i Help you sir ?</p>
+            </div>
+
+            </div>
+        </div>
+        
+    </div>
+    <button class="btn" id="start">Click here to Speak</button>
+
+    <form>
+  <select id="language">
     
-    <button class="start"> turn on</button>
-    <div>
-    <p id="text1" onclick="speakThis()">text1</p>
-</div>
-<div>
-    <p id="text2" onclick="speakThis()">text2</p>
-</div>
-    <script src="js1.js"></script>
+    <option id="option1" value="en-US">english</option>
+    <option value="ta-IN">tamil</option>
+    <option value="hi">hindi</option>
+  </select>
+</form>
+    
+    <!--
     <script>
-<audio id="my_audio" src="audio1.mp3" type="audio/mpeg">
-    
-
-</audio>
-</script>
-
-
+        document.getElementById("spkbtn").onclick=function()
+        {
+            location.href="about.html";
+            
+        }
+    </script>
+    -->
+    <script src="https://requirejs.org/docs/release/2.3.5/minified/require.js"></script>
+    <script src="styleJs.js"> </script>
+    <script src="app.js">
+        
+    </script>
 </body>
 </html>
