@@ -1,102 +1,160 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100;200;300;400;500;600;700&display=swap");
-
-*{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Roboto Mono", monospace;
-  min-height: 100%;
-  min-width: 500px;
-
-
+*
+{
+    padding: 0;
+    margin: 0;
+    font-family: 'corbel';
 }
-.bg {
-  position: fixed; 
-  top: 0; 
-  left: 0; 
-	
-  /* Preserve aspet ratio */
-  min-width: 100%;
-  min-height: 100%;
+body
+{
+    color: aliceblue;
+    min-height: 100vh;
+    background-image: url(./assets/un.jpg);
+    background-size: cover;
 }
-.main {
-  min-height: 100vh;
-  position: relative;
-  width: 100%;
-  background: #000;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+header
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 50px;
 }
 
-.main .image-container {
-  padding: 10px;
-}
-.bg{
-height: 100%;
-}
-
-.main .image-container .image {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
+.logo
+{
+    height: 170px;
+    width: 170px;
 }
 
-.main .image-container .image img {
-  width: 170px;
-  align-items: center;
+header a img
+{
+    height: 90px;
+    width: 90px;
+    mix-blend-mode: lighten;
+}
+.container
+{
+    margin: 5px 10px;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 5px;
+    justify-content: space-between;
+}
+.lcol
+{
+    margin-left: 5%;
 }
 
-.main .image-container h1 {
-  color: #00bcd4;
-  text-align: center;
-  margin-bottom: 10px;
-  font-size: 40px;
+.lcol img
+{
+    mix-blend-mode: lighten;
+    height: 400px;
+    width: 400px;
+    filter: hue-rotate(210deg);
 }
 
-.main .image-container p {
-  color: #324042;
-  text-align: center;
-  margin-bottom: 40px;
+.rcol
+{
+    margin-right: 10%;
 }
 
-.main .input {
-  display: flex;
-  justify-content: center;
-  text-align: center;
-  align-items: center;
-  width: 10px;
-  height: 50px;
-  border-radius: 20px;
-  background: rgb(102, 178, 181);
+.convo
+{
+    font-size: 16px;
+    font-family: sans-serif;
+    display: flex;
+    position: relative;
+    height: 400px;
+    width: 300px;
+    padding: 30px;
+    border-radius: 25px;
+    justify-content: flex-start;
+    flex-direction: column;
+    background-color: rgba(255, 255, 255, 0.151);
+    backdrop-filter: blur(10px);
 }
-
-.main .input .talk {
-  background: transparent;
-  outline: none;
-  border: none;
-  width: 50px;
-  height: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 15px;
-  cursor: pointer;
+#text1{
+    
+    position: absolute;
+    width: auto;
+    margin-top: 10px;
+    right:20px;
+    height: auto;
 }
-
-.main .input .talk i {
-  font-size: 20px;
-  color: #131b1b;
+#text2{
+    height: auto;
+    position: absolute;
+    width: auto;
+    padding-right: 40px;
+    margin-top: 45px;
 }
+/* Style the select element */
 
-.main .input .content {
-  color: #121515;
-  font-size: 15px;
-  margin-right: 20px;
-  text-align : left;
+#language {
+    
+    margin-left:90%;
+    margin-top: 2%;
+    font-size: 16px;
+    padding: 10px 40px;
+    border: #000000;
+    border-radius: 15px;
+    background-color: #000000d7;
+    color: #ffffff;
+  }
+  
+  /* Style the option elements */
+#language option {
+    font-size: 14px;
+    padding: 8px;
+   
+    border-radius: 4px;
+    background-color: #000000;
+    color: #fffbfb;
+  }
   
 
+.btn
+{
+    background-color: transparent;
+    border: solid 3px white;
+    border-radius: 50px;
+    color: aliceblue;
+    font-size: 20px;
+    font-weight: 600;
+    margin-left: 7%;
+    padding: 10px 90px;
+    position: relative;
+}
+
+.btn:hover
+{
+    border-color: rgb(58, 143, 255);
+    color: rgb(58, 143, 255);
+    transition: 0.8s;
+    cursor: pointer;
+}
+
+@media only screen and (max-width:810px) {
+    body{
+        min-height: 100vh;
+        background-size: cover;
+    }
+
+    .convo
+    {
+        position: relative;
+        left: 50%;
+    }
+
+    .lcol img
+    {
+        display: none;
+    }
+    .rcol
+    {
+        margin: 40%;
+    }
+    .btn{
+        margin-top: 90px;
+        margin-right: 0;
+    }
 }
