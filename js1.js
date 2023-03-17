@@ -1,5 +1,4 @@
-const startButton = document.querySelector(".start");
-
+const startButton = document.getElementById("start");
 
 
 
@@ -15,11 +14,14 @@ function speakTamil(text){
 
     // Set the text that is to be spoken.
     utterance.text = text;
+    console.log(utterance)
 
     // Use the speak() method of the SpeechSynthesisUtterance object to start the speech synthesis.
     speechSynthesis.speak(utterance);
 
 }
+
+
 
 //module to splitewords...................................................................................................................
 
@@ -29,20 +31,35 @@ function splitewords(sentence){
 
     for ( let l=0;l<s.length;l++)
 	{
-
 		var name= s[l]
             if(name=="of"||name=="in"|| name=="on"||name=="at"){
-            name=s[l + 1];
+
+                name=s[l + 1];
+
+            for ( let m=0;m<name.length;m++){
+                    if (name[m]=="?"){
+                       name= name.replace("?", "")
+                    console.log(name)
+                    
+                }        
+            }
+            return name
+            
+            }
+            else if(name=="hello"&&name=="to"){
+                name=s[l+1]
             }
             else if(name=="into"){
                 name=s[l-1];
             }
-            
 
        
     }
+    console.log(name)
+   
     return name
 }
+
 
 
 //module to identification.........................................................................................................
@@ -99,7 +116,40 @@ function localStoragenew(){
 
 
 //Create a function to translate a given string into another language
-function translate(string, language) {
+// function translate(string, language) {
+//     //Create an object to store the language codes
+//     let languageCodes = {
+//       en: 'English',
+//       es: 'Spanish',
+//       fr: 'French',
+//       de: 'German',
+//       it: 'Italian',
+//       ja: 'Japanese',
+//       ta: 'tamil'
+//     };
+//     //Check if the given language is a valid code
+//     if (languageCodes[language]) {
+//       //If valid, use the Google Translate API to translate the string
+//       let url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${language}&dt=t&q=${string}`;
+//       //Make the API request
+//       fetch(url)
+//         .then(res => res.json())
+//         .then(data => {
+//           //Log the translated string
+//           console.log(`Translated string to ${languageCodes[language]}: ${data[0][0][0]}`);
+//           speakTamil(data[0][0][0])
+//         })
+//         .catch(error => {
+//           //Log an error if the request fails
+//           console.log(`Error: ${error}`);
+//         });
+//     } else {
+//       //Log an error if the language code is invalid
+//       console.log('Error: Invalid language code');
+//     }
+//   }
+
+function texttranslate(string, language) {
     //Create an object to store the language codes
     let languageCodes = {
       en: 'English',
@@ -108,7 +158,8 @@ function translate(string, language) {
       de: 'German',
       it: 'Italian',
       ja: 'Japanese',
-      ta: 'tamil'
+      ta: 'tamil',
+      hi: "hindi"
     };
     //Check if the given language is a valid code
     if (languageCodes[language]) {
@@ -120,18 +171,79 @@ function translate(string, language) {
         .then(data => {
           //Log the translated string
           console.log(`Translated string to ${languageCodes[language]}: ${data[0][0][0]}`);
-          speakTamil(data[0][0][0])
+          speak(data[0][0][0],language)
         })
         .catch(error => {
           //Log an error if the request fails
           console.log(`Error: ${error}`);
         });
+
+        
     } else {
       //Log an error if the language code is invalid
       console.log('Error: Invalid language code');
+      speak("Error: Invalid language code",language)
     }
   }
+
+
+
+//input translation ...............................................................................................................................................................
+
+async function Input_translate(string) {
+
+      //If valid, use the Google Translate API to translate the string
+      let url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl="en"&dt=t&q=${string}`;
+      //Make the API request
+
+
+    const res = await fetch(url);
+    const data = await res.json();
+    //Log the translated string
+    console.log(typeof(data[0][0][0]))
+    recheck(data[0][0][0].toLowerCase())
+    
+    
+        // .catch(error => {
+        //   //Log an error if the request fails
+        //   console.log(`Error: ${error}`);
+        // });
+}
+
+
+
+//output ttranslation ...............................................................................................................................................................
+
+async function output_translate(string,language) {
+
+   let Speak_language = language
+    let url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${Speak_language}&dt=t&q=${string}`;
+      //Make the API request
+      fetch(url)
+        .then(res => res.json())
+        .then(data => { 
+            console.log(data[0][0][0])
+          speak(data[0][0][0],Speak_language)
+          
+        })
+        .catch(error => {
+          //Log an error if the request fails
+          console.log(`Error: ${error}`);
+        });
+    } 
+  
+
+
+
 // Call the function with a string and language
+
+
+function language(){
+const langu = document.getElementById("language").value;
+console.log(langu)
+
+return langu
+}
 
 
 
@@ -189,20 +301,66 @@ function femaleVoice(){
 //module to speak.............................................................................................................
 
 
-function speak(sentence){
-    var text_speak = new SpeechSynthesisUtterance(sentence);  
-    text_speak.rate = 1;
-    text_speak.pitch = 2;
-   
+function speak(sentence,language){
+    let utterance = new SpeechSynthesisUtterance(); 
     
+     utterance.lang = language; 
 
-    window.speechSynthesis.speak(text_speak);
+     utterance.text = sentence
+
+   
+    speechSynthesis.speak(utterance);
+    document.getElementById("text2").innerHTML =  sentence;
 
 }  
+function speakHindi(text){
+    
+    let utterance = new SpeechSynthesisUtterance();
+    utterance.lang = 'hi';
+
+    // Set the text that is to be spoken.
+    utterance.text = text;
+    console.log(utterance)
+
+    // Use the speak() method of the SpeechSynthesisUtterance object to start the speech synthesis.
+    speechSynthesis.speak(utterance);
+
+}
+function speak_check(textToSpeech){
+    const { TextToSpeechClient } = textToSpeech;
+
+
+    const client = new TextToSpeechClient();
+
+
+    const text = 'హలో ప్రపంచం';
+    const languageCode = 'te-IN';
+
+    const request = {
+  input: { text },
+  voice: { languageCode, ssmlGender: 'FEMALE' },
+  audioConfig: { audioEncoding: 'MP3' },
+    };
+
+     
+client.synthesizeSpeech(request, (err, response) => {
+     if (err) {
+     console.error('Error:', err);
+        return;
+     }
+    
+    const audio = new Audio(`data:audio/mp3;base64,${response.audioContent.toString('base64')}`);
+    audio.play();
+});
+
+}
+
+
 
 //time module .............................................................................................................
 
 function startTime() {
+    
     var today = new Date();
     var h = today.getHours();
     var m = today.getMinutes();
@@ -210,7 +368,9 @@ function startTime() {
 
     // add a zero in front of numbers greater than 10
     var crttime ="The time is " + convertHourToName(h) + " o'clock and " + convertNumberToName(m) + "  minutes" + period(p,h);
-    speak(crttime);
+    
+    output_translate(crttime,output_language);
+    console.log(crttime)
        
 }
 
@@ -299,23 +459,32 @@ function wishMe(){
 
 //weather module............................................................................................................................
 
-function weather(message){
+function weather(message,output_language){
 
-   
     var name=splitewords(message)
+
+    for(i=0;i<length.name;i++){
+        console.log("hi")
+    }
+    
     let cityname= name;
 
     fetch("https://api.openweathermap.org/data/2.5/weather?q=" + cityname + "&appid=e254e72d1b2007525c7fc950da4ff4ad&units=metric").then((e)=>{
         return e.json();
     }).then(function (data){
+        console.log(data)
     let temp = data.main.temp;
     let feels_like = data.main.feels_like;
     
     
-    speak("The weather of your state is"+ temp);
-    speak("And its feels like a "+ feels_like);
-
+    
+   if (output_language=="ta"){
     translate("The weather of your state is"+ temp,'ta')
+   }
+   else{
+    speak("The weather of "+cityname+ "is"+ temp);
+    speak("And its feels like a "+ feels_like);
+   }
   
     document.getElementById("text2").innerHTML =  temp;
     
@@ -324,11 +493,10 @@ function weather(message){
 
 }
 
-
-
 //joke generator .............................................................................................................................
 
 function acquireJoke() {
+    
 
     let API = "https://v2.jokeapi.dev/joke/Any?blacklistFlags=nsfw,religious,political,racist,sexist,explicit&type=single";
     // remove content-fade class
@@ -369,6 +537,7 @@ function Tamil(message){
     else if(message.includes("say in tamil")){
         finalText="இந்த நகைச்சுவையை தவிர்த்துக்கொல்லலாம்"
     }
+    
 
     else{
         finalText="எனக்கு  தமிழில் ஆனா ஆவன மட்டுமே தெரியும்"
@@ -392,9 +561,6 @@ function battery(){
         console.log(hr,min)
 
     });
-
-
-
 
 }
 
@@ -421,6 +587,7 @@ function recheck(message){
             count=count+1;
             newcount=localStorage.setItem("count",count);
             localStorage.setItem("oldMessage",message);
+           
             speakThis(message);
             
            
@@ -473,84 +640,104 @@ function recheck(message){
 
 window.addEventListener("load",()=>{
 
-//     music();
-//     speak("Initiating system");
-//     speak("Activating jarvis");
-//     //translate('Im jarvis ,An AI based voice assistant ', 'ta'); // Hola mundo
-//     //femaleVoice("Im jarvis ,An AI based voice assistant ","ta")
-//     //battery();
-   
-//     wishMe();
-//    // userName("i am ponraj") ;
-//     //localStoragenew();
+  //  speak_check(textToSpeech);
     
-
-//     startTime();
-//     speak("Let me give a quick intro about me");
-//     speak("Im jarvis ,An AI based voice assistant ");
-//     speak(" I Can do many things such as Forecasting about weather, Opening Google , Wikipedia, instagram, facebook");
-//     speak("I Can help you 24 hours and 7 Days a week");
-//     weather();
-
+//     music();
+        speak("Initiating system");
+        //speak("Activating jarvis");
+      //translate('I\'m jarvis ,An A I based voice assistant ', 'ta'); // Hola mundo
+    
+     
+        
+//     femaleVoice("Im jarvis ,An AI based voice assistant ","ta")
+//     //battery();
+       
+//        wishMe();
+// //    // userName("i am ponraj") ;
+//        localStoragenew();
+    
+//        startTime();
+//speak("Let me give a quick intro about me");
+//      speak("Im jarvis ,An AI based voice assistant ");
+//      speak(" I Can do many things such as Forecasting about weather, Opening Google , Wikipedia, instagram, facebook");
+//      speak("I Can help you 24 hours and 7 Days a week");
+//     // weather();
 
    // tamil();
 
 })
 
 
+
 //recognition module.............................................................................................................
 
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 const recognition = new SpeechRecognition();                                                  //assign a varibable to speech recoginition
-//recognition.continous = false;                                      //set the mic to false default ,so it will turn on only if  we call
-//recognition.lang = "en-US";                                         //set languange
-//recognition.interimResult=false;                                    //to get the word accuracy
-//recognition.maxAlternative=1;
+recognition.continous = false;                                      //set languange                                     //set the mic to false default ,so it will turn on only if  we call
+
+// recognition.interimResult=false;                                    //to get the word accuracy
+// recognition.maxAlternative=1;
+
 
 recognition.onresult = (event) => {
-    
+
+
     const current = event.resultIndex;
     const transcript = event.results[current][0].transcript;
     document.getElementById("text1").innerHTML = transcript;
-    recheck(transcript.toLowerCase())
+   
+      var message = transcript.toLowerCase()
+//     console.log(typeof(translate(message)))
+      Input_translate(message)
+//     console.log(typeof(transcript.toLowerCase()))
+
+    
+    
+     
    // speakThis(transcript.toLowerCase());
     console.log("recognition end")
-   
+    
 }
 
 startButton.addEventListener('click', ()=>{
+    recognition.lang = language(); 
+
     recognition.start();
+    
     console.log("event call")
 })
 
 
-
 function speakThis(message) {
-    const speech = new SpeechSynthesisUtterance();
-    
-
-    speech.text = "";
-
+  
+    output_language = language()
 
     if(message.includes('battery status')||(message.includes("percentage"))) {
-        battery()
-
+        battery();
+    
     }
+    
 
-    else if(message.includes('how are you')||(message.includes("how is life"))||(message.includes("how was the day man"))) {
-
+    else if(message.includes('how are you')||(message.includes("how is life"))||(message.includes("how was the day man"))||(message.includes("how's going"))) {
+      
         const words = ["Im good","Im fine", "Pretty good", "Im well","Im OK", "Not too bad.", "Yeah, all right", " Very well, thanks", "I’ve been better",
         "Like you, but better", "Happy and content, thank you", "Going great. Hope this status quo persists for rest of the day","I am blessed!",
         "Way better than I deserve!"," Im doing really well.",
         "Surviving, I guess"
- 
+
      ];
         const finalText = words[Math.floor(Math.random() * words.length)];
-        console.log(finalText)
-        speech.text = finalText;
-        document.getElementById("text2").innerHTML = finalText;
+       
+        output_translate(finalText, output_language)
+        
+       
     }
-
+ 
+    else if (message.includes('say hello to')||(message.includes("say hi to"))) {
+        
+        finalText="hello "+splitewords(message)+" nice to meet you ";
+        output_translate(finalText, output_language)
+    }
 
     else if(message.includes('name')) {
 
@@ -568,8 +755,8 @@ function speakThis(message) {
             localStorage.setItem("username",userName(message));
             
         }
-        speak(finalText)
-        document.getElementById("text2").innerHTML = finalText;
+        output_translate(finalText, output_language)
+
     }
 
     // else if(message.includes('tanslate into')||message.includes('meaning in')) {
@@ -580,8 +767,7 @@ function speakThis(message) {
     // }
 
     else if(message.includes('tell me a joke')) {
-        const finalText = "yep";
-        speech.text = finalText;
+        speak("yep",output_language);
         acquireJoke();
        
     }
@@ -593,33 +779,26 @@ function speakThis(message) {
        
     }
 
-
     else if(message.includes('open google')) {
         window.open("https://google.com", "_blank");
         const finalText = "Opening Google";
-        speech.text = finalText;
-        document.getElementById("text2").innerHTML = finalText;
+        output_translate(finalText, output_language)
     }
 
     else if(message.includes('weather') || message.includes('temperature')) {
-        speech.text = "please wait";
-        weather(message)
-    
-        console.log(word);
+        weather(message,output_translate)
     } 
 
     else if(message.includes('open instagram') || message.includes('check my instagram')) {
         window.open("https://instagram.com", "_blank");
         const finalText = "Opening instagram";
-        speech.text = finalText;
-        document.getElementById("text2").innerHTML = finalText;
+        output_translate(finalText, output_language)
     }
    
     else if(message.includes('wikipedia')) {
         window.open(`https://en.wikipedia.org/wiki/${message.replace("wikipedia", "")}`, "_blank");
         const finalText = "This is what i found on wikipedia regarding " + message;
-        speech.text = finalText;
-        document.getElementById("text2").innerHTML = finalText;
+        output_translate(finalText, output_language)
     }
 
     else if(message.includes('time')) {
@@ -632,15 +811,13 @@ function speakThis(message) {
     else if(message.includes('date')) {
         const date = new Date().toLocaleString(undefined, {month: "short", day: "numeric"})
         const finalText = date;
-        speech.text = finalText;
-        document.getElementById("text2").innerHTML = finalText;
+        output_translate(finalText, output_language)
     }
 
     else if(message.includes('calculator')) {
         window.open('Calculator:///')
         const finalText = "Opening Calculator";
-        speech.text = finalText;
-        document.getElementById("text2").innerHTML = finalText;
+        output_translate(finalText, output_language)
     }
     else if(message.includes('what is') || message.includes('who is') || message.includes('what are')) {
         window.open(`https://www.google.com/search?q=${message.replace(" ", "+")}`, "_blank");
@@ -653,88 +830,48 @@ function speakThis(message) {
         Tamil(message)
     }
 
-    else if(message.includes('hey') || message.includes('hello')) {
+    else if(message.includes('hey') || message.includes('hello')|| message.includes('hi')) {
         const finalText = "Hello There";
-        speech.text = finalText;
-        document.getElementById("text2").innerHTML = finalText;
-        console.log(message);
+       
+        output_translate(finalText,output_language)
+        //speech.text = finalText;
+       // document.getElementById("text2").innerHTML = finalText;
+        //console.log(typeof(message));
     }
         
     else {
         window.open(`https://www.google.com/search?q=${message.replace(" ", "+")}`, "_blank");
         const finalText = "I found some information for " + message + " on google";
-        speech.text = finalText;
-        document.getElementById("text2").innerHTML = finalText;
+        output_translate(finalText, output_language);
+        
     
     }
    
-    speech.pitch = 2;
-    speech.rate = 1;
-
-
-
-    window.speechSynthesis.speak(speech);
 
 }
 
 
 
-//module to speak general things ...............................................................................................................
+//module to no .of language support ...............................................................................................................
+
+
+// if ('speechSynthesis' in window) {
+//     window.speechSynthesis.addEventListener('voiceschanged', function() {
+//       var voices = window.speechSynthesis.getVoices();
+//       console.log('Available voices:');
+//       for (var i = 0; i < voices.length; i++) {
+//         var voice = voices[i];
+//         console.log(voice.name + ' (' + voice.lang + ')');
+//       }
+//     });
+//   } else {
+//     console.log('SpeechSynthesisUtterance API is not supported in this browser.');
+//   }
+
 
 
 //module to get location........................................................................................................................
 
 
 
-
-
-// var div  = "location";
-// function getLocation() {
-// if (navigator.geolocation) {                                                 //The Geolocation API is accessed via a call to navigator. geolocation ;
-//     navigator.geolocation.getCurrentPosition(showPosition, showError);
-// } else {
-//     div = "The Browser Does not Support Geolocation";
-//     console.log(div)
-// }
-// }
-
-// function showPosition(position) {
-
- 
-//     div = "Latitude: " + position.coords.latitude + "Longitude: " + position.coords.longitude;
-//     var lat = position.coords.latitude;
-//     let lng = position.coords.longitude;
-
-
-
-
-// console.log(div);
-// }
-
-// function showError(error) {
-// if(error.PERMISSION_DENIED){
-//     div = "The User have denied the request for Geolocation.";
-//     console.log(div)
-// }
-// }
-
-// function location(lat,lng){
-
- 
-//     var latlng = new google.maps.LatLng(lat, lng);
-//     var geocoder = geocoder = new google.maps.Geocoder();
-//     geocoder.geocode({ 'latLng': latlng }, function (results, status) {
-//         if (status == google.maps.GeocoderStatus.OK) {
-//             if (results[1]) {
-//                 console.log("Location: " + results[1].formatted_address);
-            
-//             }
-//         }
-//     });
-  
-
-// }
-
-// getLocation();
-// location(lat,lng);
 
