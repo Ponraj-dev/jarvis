@@ -1,50 +1,62 @@
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>INERTIA - Virtual Assistant</title>
-
-    <!---- CSS Linkage ------>
-    <link rel="stylesheet" href="style.css">
-
-    <!---- Font Awesome Cdn Linkage ------>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
 </head>
-
 <body>
-    <section class="main">
-        <div class="image-container">
-            <div class="image">
-                <img id="bg"src="wave gif.gif" alt="image">
+    <header>
+        
+            <a href="./about.html">
+            <img src="./assets/asp.png" alt="asp"></a>
+            <img src="./assets/Picsart_23-02-26_16-16-35-496.png" alt="jarvis" class="logo">
+    </header>
+    <div class="container">
+        <div class="lcol">
+            <img src="./assets/giphy.gif" alt="jarvis" id="myGif">
+        </div>
+        <div class="rcol">
+            <div class="convo">
+            <div>
+                <p id="text1" onclick="speakThis()"> hey jarvis</p>
+                 </div>
+            <div>     
+               <p id="text2" onclick="speakThis()">How can i Help you sir ?</p>
             </div>
-            <h1>J A R V I S</h1>
-            
-            <p>I'm a Virtual Assistant how can i help you</p>
+
+            </div>
         </div>
-        <div class="input">
-            <button class="talk"><i class="fas fa-microphone-alt"></i></button>
-            <h1 class="content"> Click here to speak</h1>
-        </div>
-    </section>
+        
+    </div>
+    <button class="btn" id="start">Click here to Speak</button>
+
+    <form>
+  <select id="language">
     
-
-    <!------- Js Linkage --------->
-    <script src="app.js"></script>
-
+    <option id="option1" value="en-US">English</option>
+    <option value="ta-IN">Tamil</option>
+    <option value="te-IN">Telngu</option>
+    <option value="hi">Hindi</option>
+    <option value="ur-PK">urdu</option>
+  </select>
+</form>
+    
+    <!--  https://ai-jarvis.netlify.app/
     <script>
-    <audio id="my_audio" src="audio2.mp3" type="audio/mpeg">
-    
-
-    </audio>
+        document.getElementById("spkbtn").onclick=function()
+        {
+            location.href="about.html";
+            
+        }
     </script>
-    
+    -->
+    <script src="https://requirejs.org/docs/release/2.3.5/minified/require.js"></script>
+    <script src="styleJs.js"> </script>
+    <script src="app.js">
+        
+    </script>
 </body>
-
 </html>
-
-
