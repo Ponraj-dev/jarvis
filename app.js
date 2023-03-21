@@ -21,10 +21,19 @@ function speakTamil(text){
 
 }
 
+//phone call...............................................................................................................................
+function call(){
+    const phoneNumber = "6374555598"; // Replace with the phone number you want to call
+
+// Show a confirmation dialog before initiating the call
+if (confirm(`Do you want to call ${phoneNumber}?`)) {
+  window.location.href = `tel:${phoneNumber}`;
+}
+
+}
 
 
-
-//module to splitewords...................................................................................................................
+//module to splitewords...................................................................................................................S
 
 function splitewords(sentence){
     let s = sentence.split(" ");
@@ -607,6 +616,7 @@ window.addEventListener("load",()=>{
 //     music();
         speak("Initiating system");
         speak("Activating jarvis");
+        call();
       //translate('I\'m jarvis ,An A I based voice assistant ', 'ta'); // Hola mundo
     
      
@@ -752,6 +762,10 @@ function speakThis(message) {
     else if(message.includes('weather') || message.includes('temperature')) {
         weather(message,output_translate)
     } 
+    else if(message.includes('call') || message.includes('make a call')) {
+       call();
+    } 
+
 
     else if(message.includes('open instagram') || message.includes('check my instagram')) {
         window.open("https://instagram.com", "_blank");
