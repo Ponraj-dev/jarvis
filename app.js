@@ -82,7 +82,7 @@ const message = "Hello!"; // Replace with the message you want to send
 
 // Open the WhatsApp application with a pre-populated message
 if (confirm(`Do you want to message ${phoneNumber}?`)){
-window.location.href = `whatsapp://send?phone=${phoneNumber}&text=${message}`;
+window.location.href = "fb://";
 }
 }
 
