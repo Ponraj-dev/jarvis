@@ -23,6 +23,7 @@ function speakTamil(text){
 
 
 
+
 //module to splitewords...................................................................................................................
 
 function splitewords(sentence){
