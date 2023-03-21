@@ -632,7 +632,7 @@ window.addEventListener("load",()=>{
 //     music();
         speak("Initiating system");
         speak("Activating jarvis");
-        whatsapp();
+        //whatsapp();
       //translate('I\'m jarvis ,An A I based voice assistant ', 'ta'); // Hola mundo
     
      
