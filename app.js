@@ -33,7 +33,7 @@ if (confirm(`Do you want to call ${phoneNumber}?`)) {
 }
 
 
-//module to splitewords...................................................................................................................S
+//module to splitewords.....................................................................................................................
 
 function splitewords(sentence){
     let s = sentence.split(" ");
@@ -68,6 +68,22 @@ function splitewords(sentence){
     console.log(name)
    
     return name
+}
+
+
+//whatsapp message................................................................................................................
+
+
+
+
+function whatsapp(){
+    const phoneNumber = "6382 958 803"; // Replace with the phone number you want to message
+const message = "Hello!"; // Replace with the message you want to send
+
+// Open the WhatsApp application with a pre-populated message
+if (confirm(`Do you want to call ${phoneNumber}?`)){
+window.location.href = `whatsapp://send?phone=${phoneNumber}&text=${message}`;
+}
 }
 
 
@@ -616,7 +632,7 @@ window.addEventListener("load",()=>{
 //     music();
         speak("Initiating system");
         speak("Activating jarvis");
-        call();
+        whatsapp();
       //translate('I\'m jarvis ,An A I based voice assistant ', 'ta'); // Hola mundo
     
      
