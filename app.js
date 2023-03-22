@@ -332,7 +332,13 @@ function speak(sentence,language){
     
      utterance.lang = language; 
 
-     utterance.text = sentence
+     utterance.text = sentence;
+
+     if(utterance.lang=="ta-IN"||utterance.lang=="en-US"){
+        utterance.pitch=3;
+        
+
+     }
 
    
     speechSynthesis.speak(utterance);
@@ -730,7 +736,12 @@ function speakThis(message) {
         
         finalText="yeah sure ";
         output_translate(finalText, output_language);
-        window.location.href = "fb://";
+        window.location = "fb://";
+
+// If the Facebook app is not installed, open the Facebook website instead
+        setTimeout(function() {
+       window.location = "https://www.facebook.com";
+        }, 500);
 
     }
 
@@ -878,4 +889,3 @@ function speakThis(message) {
 
 
 //module to get location........................................................................................................................
-
