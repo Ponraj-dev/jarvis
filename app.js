@@ -33,7 +33,6 @@ if (confirm(`Do you want to call ${phoneNumber}?`)) {
 }
 
 
-
 //module to splitewords.....................................................................................................................
 
 function splitewords(sentence){
@@ -82,8 +81,8 @@ function whatsapp(){
 const message = "Hello!"; // Replace with the message you want to send
 
 // Open the WhatsApp application with a pre-populated message
-if (confirm(`Do you want to message ${phoneNumber}?`)){
-window.location.href = "fb://";
+if (confirm(`Do you wnat to message ${phoneNumber}?`)){
+    window.location.href = "fb://";
 }
 }
 
@@ -552,6 +551,9 @@ function battery(){
 
 }
 
+
+
+
 //recheck message.............................................................................................................................
 
 
@@ -633,7 +635,7 @@ window.addEventListener("load",()=>{
 //     music();
         speak("Initiating system");
         speak("Activating jarvis");
-        
+        //whatsapp();
       //translate('I\'m jarvis ,An A I based voice assistant ', 'ta'); // Hola mundo
     
      
@@ -668,14 +670,16 @@ recognition.continous = false;                                      //set langua
 // recognition.maxAlternative=1;
 
 
-recognition.onresult = (event) => {
+recognition.onresult = async (event) => {
 
 
     const current = event.resultIndex;
     const transcript = event.results[current][0].transcript;
     document.getElementById("text1").innerHTML = transcript;
-   
+    
+  
       var message = transcript.toLowerCase()
+      
 //     console.log(typeof(translate(message)))
       Input_translate(message)
 //     console.log(typeof(transcript.toLowerCase()))
@@ -722,6 +726,14 @@ function speakThis(message) {
         
        
     }
+    else if (message.includes('facebook')||(message.includes("FB"))) {
+        
+        finalText="yeah sure ";
+        output_translate(finalText, output_language);
+        window.location.href = "fb://";
+
+    }
+
  
     else if (message.includes('say hello to')||(message.includes("say hi to"))) {
         
@@ -866,7 +878,4 @@ function speakThis(message) {
 
 
 //module to get location........................................................................................................................
-
-
-
 
