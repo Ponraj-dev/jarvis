@@ -31,6 +31,8 @@ if (confirm(`Do you want to call ${phoneNumber}?`)) {
 }
 
 }
+ 
+
 
 
 //module to splitewords.....................................................................................................................
@@ -62,6 +64,7 @@ function splitewords(sentence){
             else if(name=="into"){
                 name=s[l-1];
             }
+            
 
        
     }
@@ -69,21 +72,72 @@ function splitewords(sentence){
    
     return name
 }
+//access button............................................................................................................................................................................................
+
+function access_button(){
+      
+    const list = document.querySelector(".access");
+    const button = document.createElement('access_button');
+ 
+    
+
+   list.innerHTML = `<button class="access_button "type="submit"> click here</button> `
+   list.appendChild(button);
+}
 
 
-//whatsapp message................................................................................................................
+
+//facebook..............................................................................................................................................................................................................................
+
+function facebook(){
+
+    const launchFacebookMB = () => {
+        window.location.href = "fb://";
+    };
+    
+    
+      access_button();
+     document.querySelector(".access").addEventListener('click', () => {
+        if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Tablet/i.test(navigator.userAgent)) {
+            console.log('Mobile device detected');
+            launchFacebookMB();
+          }
+          else {
+            window.location.href = "https://www.facebook.com";
+          }
+         
+      });
 
 
+
+    }
+
+
+  
+//whatsapp message...............................................................................................................................................................................................................................
+
+ 
 
 
 function whatsapp(){
     const phoneNumber = "6382 958 803"; // Replace with the phone number you want to message
-const message = "Hello!"; // Replace with the message you want to send
-
+    const message = "Hello!"; // Replace with the message you want to send
+    const launchWhatsappMB = () => {
+        window.location.href = "intent://send/+123456789#Intent;scheme=smsto;package=com.whatsapp;action=android.intent.action.SENDTO;end";
+    };
 // Open the WhatsApp application with a pre-populated message
-if (confirm(`Do you wnat to message ${phoneNumber}?`)){
-    window.location.href = "fb://";
-}
+access_button();
+document.querySelector(".access").addEventListener('click', () => {
+    if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Tablet/i.test(navigator.userAgent)) {
+        console.log('Mobile device detected');
+        launchWhatsappMB();
+      }
+      else {
+        
+        window.location.href = "https://web.whatsapp.com/";
+      }
+     
+  });
 }
 
 
@@ -133,6 +187,35 @@ function localStoragenew(){
     console.log(user.age); // Output: 30
 
     }
+
+// //notification .................................................................................................................
+// function notification(){
+//     // check if the browser supports the Notification API
+// if ("Notification" in window) {
+//     // request permission to show notifications
+//     Notification.requestPermission().then(function (result) {
+//       if (result === "denied") {
+//         console.log("Permission for notifications was denied");
+//         return;
+//       } else if (result === "default") {
+//         console.log("Permission for notifications was dismissed");
+//         return;
+//       }
+  
+//       // create a new notification
+//       var notification = new Notification("Hello, World!", {
+//         body: "This is a notification sent using JavaScript.",
+//       });
+  
+//       // close the notification after 5 seconds
+//       setTimeout(notification.close.bind(notification), 5000);
+//     });
+//   }
+  
+// }
+
+
+
 
 
 //module to translator.........................................................................................................
@@ -218,22 +301,22 @@ function texttranslate(string, language) {
 
 async function Input_translate(string) {
 
-      //If valid, use the Google Translate API to translate the string
-      let url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl="en"&dt=t&q=${string}`;
-      //Make the API request
+    //If valid, use the Google Translate API to translate the string
+    let url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl="en"&dt=t&q=${string}`;
+    //Make the API request
 
 
-    const res = await fetch(url);
-    const data = await res.json();
-    //Log the translated string
-    console.log(typeof(data[0][0][0]))
-    recheck(data[0][0][0].toLowerCase())
-    
-    
-        // .catch(error => {
-        //   //Log an error if the request fails
-        //   console.log(`Error: ${error}`);
-        // });
+  const res = await fetch(url);
+  const data = await res.json();
+  //Log the translated string
+  console.log(typeof(data[0][0][0]))
+  recheck(data[0][0][0].toLowerCase())
+  
+  
+      // .catch(error => {
+      //   //Log an error if the request fails
+      //   console.log(`Error: ${error}`);
+      // });
 }
 
 
@@ -242,22 +325,22 @@ async function Input_translate(string) {
 
 async function output_translate(string,language) {
 
-   let Speak_language = language
-    let url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${Speak_language}&dt=t&q=${string}`;
-      //Make the API request
-      fetch(url)
-        .then(res => res.json())
-        .then(data => { 
-            console.log(data[0][0][0])
-          speak(data[0][0][0],Speak_language)
-          
-        })
-        .catch(error => {
-          //Log an error if the request fails
-          console.log(`Error: ${error}`);
-        });
-    } 
+ let Speak_language = language
   
+    let url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${Speak_language}&dt=t&q=${string}`;
+    //Make the API request
+    fetch(url)
+      .then(res => res.json())
+      .then(data => { 
+          console.log(data[0][0][0])
+        speak(data[0][0][0],language)
+        
+      })
+      .catch(error => {
+        //Log an error if the request fails
+        console.log(`Error: ${error}`);
+      });
+  } 
 
 
 
@@ -333,12 +416,6 @@ function speak(sentence,language){
      utterance.lang = language; 
 
      utterance.text = sentence;
-
-     if(utterance.lang=="ta-IN"||utterance.lang=="en-US"){
-        utterance.pitch=3;
-        
-
-     }
 
    
     speechSynthesis.speak(utterance);
@@ -453,12 +530,10 @@ function wishMe(){
 //weather module............................................................................................................................
 
 function weather(message,output_language){
-
+    var language = output_language;
     var name=splitewords(message)
-
-    for(i=0;i<length.name;i++){
-        console.log("hi")
-    }
+    console.log(language)
+    
     
     let cityname= name;
 
@@ -471,13 +546,13 @@ function weather(message,output_language){
     
     
     
-   if (output_language=="ta"){
-    translate("The weather of your state is"+ temp,'ta')
-   }
-   else{
-    speak("The weather of "+cityname+ "is"+ temp);
-    speak("And its feels like a "+ feels_like);
-   }
+  
+   
+    output_translate("The weather of "+cityname+ " is : "+ temp,language);
+    output_translate("And its feels like a : "+ feels_like, language);
+   
+
+   
   
     document.getElementById("text2").innerHTML =  temp;
     
@@ -609,7 +684,6 @@ function recheck(message){
     }
 
     
-   
     // if(message == localStorage.getItem("oldMessage")){
     //         speak("how long would you ask the same question")
     //         speak("you can ask me about weather , temperature ,and talk in tamil")
@@ -626,9 +700,116 @@ function recheck(message){
 }
 
 
+//location ................................................................................................................................................................................................
+
+function getLocation(output_language) {
+    if (navigator.geolocation) {
+        
+      navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+      $("#location").text("Geolocation is not supported by this browser.");
+    }
+  }
+  
+  
+  function showPosition(position) {
+    
+    const latitude = position.coords.latitude;
+    const longitude = position.coords.longitude;
+    const apiKey = "d469e0bf85bf43b9af32e52311ad3b43";
+    const url = "https://api.opencagedata.com/geocode/v1/json?q=" + latitude + "+" + longitude + "&key=" + apiKey;
+    var language = "en-us";
+
+    $.getJSON(url, function(data) {
+      if (data.results.length > 0) {
+        const city = data.results[0].components.city || data.results[0].components.town || data.results[0].components.village;
+        if (city) {
+          output_translate("Your location: " + city,language);
+          output_translate("if i'm wrong , tell me your location with name of your location ", language);
+          weather(city)
+        } else {
+          $("#location").text("Could not determine your city.");
+        }
+      } else {
+        $("#location").text("Could not determine your location.");
+      }
+    });
+  }
 
 
 
+
+
+//general talk..................................................................................................................................
+
+// Function to send user query to ChatGPT using OpenAI API
+function generateResponse(input,language) {
+    const prompt = "Hello, how can I help you today?";
+    const temperature = 0.5;
+    const maxTokens = 30;
+    let output_language = language;
+
+    $.ajax({
+      url: "https://api.openai.com/v1/engines/davinci/completions",
+      type: "POST",
+      beforeSend: function(xhr) {
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.setRequestHeader("Authorization", "Bearer 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");
+      },
+      data: JSON.stringify({
+        prompt,
+        temperature,
+        max_tokens: maxTokens,
+        prompt: input,
+      }),
+      success: function(result) {
+        const response = result.choices[0].text.trim();
+      if (response.length > 0) {
+        const lastChar = response[response.length - 1];
+        if (lastChar !== "." && lastChar !== "!" && lastChar !== "?") {
+          $("#text2").text(response + ".");
+        } else {
+          $("#text2").text(response);
+        }
+        var result = $("#text2").text();
+    }
+        console.log(result)
+        output_translate(result,output_language)
+      },
+      error: function(_xhr, _status, error) {
+        console.log("Error:", error);
+      },
+    });
+  }
+
+  // Handle form submission
+ 
+
+
+
+
+
+// Define the function to create the task reminder..............................................................................................
+
+
+// function createTaskReminder(task, time) {
+//     // Calculate the time until the reminder should be triggered
+//     var now = new Date();
+//     var timeDiff = time.getTime() - now.getTime();
+  
+//     // Schedule the reminder to be triggered at the specified time
+//     setTimeout(function() {
+//       // Show the reminder
+//       alert("Reminder: " + task);
+//     }, timeDiff);
+//   }
+  
+//   // Usage example: create a reminder for "Submit report" at 3pm today
+//   var task = "Submit report";
+//   var time = new Date();
+//   time.setHours(12, 40, 0, 0); // Set the time to 3pm today
+//   //createTaskReminder(task, time);
+  
 
 
 
@@ -641,6 +822,9 @@ window.addEventListener("load",()=>{
 //     music();
         speak("Initiating system");
         speak("Activating jarvis");
+       // notification();
+      
+       
         //whatsapp();
       //translate('I\'m jarvis ,An A I based voice assistant ', 'ta'); // Hola mundo
     
@@ -736,12 +920,19 @@ function speakThis(message) {
         
         finalText="yeah sure ";
         output_translate(finalText, output_language);
-        window.location = "fb://";
+        facebook();
 
 // If the Facebook app is not installed, open the Facebook website instead
-        setTimeout(function() {
-       window.location = "https://www.facebook.com";
-        }, 500);
+        
+
+    }
+    else if (message.includes('whatsapp')||(message.includes("WhatsApp web"))) {
+        
+        finalText="yeah sure ";
+        output_translate(finalText, output_language);
+        whatsapp();
+
+
 
     }
 
@@ -799,8 +990,13 @@ function speakThis(message) {
         output_translate(finalText, output_language)
     }
 
+    else if(message.includes('what is the weather')&& message.includes('of' )|| message.includes('in' )|| message.includes('temperature')) {
+        
+        weather(message,output_language)
+    } 
     else if(message.includes('weather') || message.includes('temperature')) {
-        weather(message,output_translate)
+        getLocation("en-us")
+        
     } 
     else if(message.includes('call') || message.includes('make a call')) {
        call();
@@ -840,8 +1036,7 @@ function speakThis(message) {
     else if(message.includes('what is') || message.includes('who is') || message.includes('what are')) {
         window.open(`https://www.google.com/search?q=${message.replace(" ", "+")}`, "_blank");
         const finalText = "This is what i found on internet regarding " + message;
-        speech.text = finalText;
-        document.getElementById("text2").innerHTML = finalText;
+        output_translate(finalText,output_language)
     }
     
     else if(message.includes('tamil')) {
@@ -858,11 +1053,12 @@ function speakThis(message) {
     }
         
     else {
-        window.open(`https://www.google.com/search?q=${message.replace(" ", "+")}`, "_blank");
-        const finalText = "I found some information for " + message + " on google";
-        output_translate(finalText, output_language);
+
+
+        const userInput = message;
         
-    
+        generateResponse(userInput,output_language);
+        
     }
    
 
