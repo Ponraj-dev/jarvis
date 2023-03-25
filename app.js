@@ -430,7 +430,7 @@ function speak(sentence,language){
 //time module .............................................................................................................
 
 function startTime() {
-    
+    output_language =document.getElementById("language").value
     var today = new Date();
     var h = today.getHours();
     var m = today.getMinutes();
@@ -623,7 +623,7 @@ function battery(){
         var level = Math.ceil(battery.level*100);
         let hr = parseInt(battery.dischargingTime / 3600);
         let min = parseInt(battery.dischargingTime / 60 - hr * 60);
-        speak("your system has "+ level+ "percentage of charge")
+        speak("your device has "+ level+ "percentage of charge")
         speak("and i think it would be available on"+ hr+"hours"+min+"minutes")
         document.getElementById("text2").innerHTML = level;
         console.log(hr,min)
@@ -745,8 +745,8 @@ function getLocation(output_language) {
 // Function to send user query to ChatGPT using OpenAI API
 function generateResponse(input,language) {
     const prompt = "Hello, how can I help you today?";
-    const temperature = 0.5;
-    const maxTokens = 30;
+    const temperature = 0.7;
+    const maxTokens = 10;
     let output_language = language;
 
     $.ajax({
@@ -754,7 +754,7 @@ function generateResponse(input,language) {
       type: "POST",
       beforeSend: function(xhr) {
         xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.setRequestHeader("Authorization", "Bearer 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");
+        xhr.setRequestHeader("Authorization", "Bearer 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");
       },
       data: JSON.stringify({
         prompt,
@@ -764,20 +764,17 @@ function generateResponse(input,language) {
       }),
       success: function(result) {
         const response = result.choices[0].text.trim();
-      if (response.length > 0) {
-        const lastChar = response[response.length - 1];
-        if (lastChar !== "." && lastChar !== "!" && lastChar !== "?") {
-          $("#text2").text(response + ".");
-        } else {
+        if (response.length > 0) {
           $("#text2").text(response);
+          var result = $("#text2").text();
         }
-        var result = $("#text2").text();
-    }
         console.log(result)
         output_translate(result,output_language)
       },
       error: function(_xhr, _status, error) {
         console.log("Error:", error);
+        result = "sorry i don't know"
+        output_translate(result,output_language)
       },
     });
   }
@@ -833,22 +830,22 @@ window.addEventListener("load",()=>{
 //     femaleVoice("Im jarvis ,An AI based voice assistant ","ta")
 //     //battery();
        
-//        wishMe();
+          wishMe();
 // //    // userName("i am ponraj") ;
 //        localStoragenew();
     
-//        startTime();
-//speak("Let me give a quick intro about me");
-//      speak("Im jarvis ,An AI based voice assistant ");
-//      speak(" I Can do many things such as Forecasting about weather, Opening Google , Wikipedia, instagram, facebook");
-//      speak("I Can help you 24 hours and 7 Days a week");
-//     // weather();
+        //startTime();
+        speak("Let me give a quick intro about me");
+        speak("Im jarvis ,An AI based voice assistant ");
+        speak(" I Can do many things such as Forecasting about weather, Opening Google , Wikipedia, instagram, facebook");
+        speak("I Can help you 24 hours and 7 Days a week");
+        document.getElementById("text2").innerHTML = "Activating jarvis";
+        
+     // weather();
 
    // tamil();
 
 })
-
-
 
 //recognition module.............................................................................................................
 
@@ -873,9 +870,6 @@ recognition.onresult = async (event) => {
 //     console.log(typeof(translate(message)))
       Input_translate(message)
 //     console.log(typeof(transcript.toLowerCase()))
-
-    
-    
      
    // speakThis(transcript.toLowerCase());
     console.log("recognition end")
@@ -918,7 +912,7 @@ function speakThis(message) {
     }
     else if (message.includes('facebook')||(message.includes("FB"))) {
         
-        finalText="yeah sure ";
+        finalText=" i Need a conformation to open any app in your device,   click the button to confrim";
         output_translate(finalText, output_language);
         facebook();
 
@@ -928,7 +922,7 @@ function speakThis(message) {
     }
     else if (message.includes('whatsapp')||(message.includes("WhatsApp web"))) {
         
-        finalText="yeah sure ";
+        finalText=" i Need a conformation to open any app in your device,   click the button to confrim";
         output_translate(finalText, output_language);
         whatsapp();
 
@@ -995,7 +989,7 @@ function speakThis(message) {
         weather(message,output_language)
     } 
     else if(message.includes('weather') || message.includes('temperature')) {
-        getLocation("en-us")
+        getLocation("en-US")
         
     } 
     else if(message.includes('call') || message.includes('make a call')) {
