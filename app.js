@@ -754,7 +754,7 @@ function generateResponse(input,language) {
       type: "POST",
       beforeSend: function(xhr) {
         xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.setRequestHeader("Authorization", "Bearer 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");
+        xhr.setRequestHeader("Authorization", "Bearer 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");
       },
       data: JSON.stringify({
         prompt,
@@ -773,8 +773,12 @@ function generateResponse(input,language) {
       },
       error: function(_xhr, _status, error) {
         console.log("Error:", error);
-        result = "sorry i don't know"
+        result = "sorry i don't know , i could get this from google for you"
         output_translate(result,output_language)
+        window.open(`https://www.google.com/search?q=${input.replace(" ", "+")}`, "_blank");
+        const finalText = "This is what i found on internet regarding " + input;
+        output_translate(finalText,output_language)
+        
       },
     });
   }
@@ -984,14 +988,14 @@ function speakThis(message) {
         output_translate(finalText, output_language)
     }
 
-    else if(message.includes('what is the weather')&& message.includes('of' )|| message.includes('in' )|| message.includes('temperature')) {
+    else if(message.includes('what is the weather of' )|| message.includes('in' )|| message.includes('temperature')) {
         
         weather(message,output_language)
     } 
-    else if(message.includes('weather') || message.includes('temperature')) {
-        getLocation("en-US")
+    // else if(message.includes('weather') || message.includes('temperature')) {
+    //     getLocation("en-US")
         
-    } 
+    // } 
     else if(message.includes('call') || message.includes('make a call')) {
        call();
     } 
@@ -1047,6 +1051,8 @@ function speakThis(message) {
     }
         
     else {
+
+
 
 
         const userInput = message;
