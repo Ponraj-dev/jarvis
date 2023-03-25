@@ -6,15 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="./style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+   
 </head>
 <body>
     <header>
+    
+    
         
             <a href="./about.html">
             <img src="./assets/asp.png" alt="asp"></a>
             <img src="./assets/Picsart_23-02-26_16-16-35-496.png" alt="jarvis" class="logo">
     </header>
-    <div class="container">
+    <div class="container" id="container">
         <div class="lcol">
             <img src="./assets/giphy.gif" alt="jarvis" id="myGif">
         </div>
@@ -26,19 +30,21 @@
             <div>     
                <p id="text2" onclick="speakThis()">How can i Help you sir ?</p>
             </div>
-
+            <div class="access">
+            
+            
+                
             </div>
+           
+            </div>
+             
         </div>
         
     </div>
     <button class="btn" id="start">Click here to Speak</button>
-<button onclick="launchPhoneDialer('6374555598')">Call 6374555598</button>
-
-<script>
-function launchPhoneDialer(phoneNumber) {
-  window.location.href = `tel:${phoneNumber}`;
-}
-</script>
+ 
+    
+<button type="submit"><a href="language.html"></a></button>
     <form>
   <select id="language">
     
@@ -46,11 +52,44 @@ function launchPhoneDialer(phoneNumber) {
     <option value="ta-IN">Tamil</option>
     <option value="te-IN">Telngu</option>
     <option value="hi">Hindi</option>
-    <option value="ur-PK">urdu</option>
+    <option value="ur-PK"> urdu</option>
   </select>
 </form>
+
+
+
+ <!--
+<div class="wrapper">
+    <div class="select-btn">
+    <span> Select language</span>
+        <i class="uil uil-angle-down"></i>
+    </div>
+    <div class="content">
+    <div class="search">
+    <i class="uil uil-search"></i>
+    <input type="text" placeholder="search">   
+    </div>
+        <ul class="options">
+            <li>Tamil</li>
+            <li>English</li>
+            <li>telngu</li>
+            <li>urdu</li>
+            <li>hindi</li>
+            <li>japanese</li>
+             <li>korean</li>
+            <li>french</li>
+            <li>Tamil</li>
+            <li>Tamil</li>
+            <li>Tamil</li>
+        </ul>
+    </div>
     
-    <!--  https://ai-jarvis.netlify.app/
+</div>
+    
+
+
+    
+     https://ai-jarvis.netlify.app/
     <script>
         document.getElementById("spkbtn").onclick=function()
         {
@@ -58,10 +97,15 @@ function launchPhoneDialer(phoneNumber) {
             
         }
     </script>
-    -->
+    
+     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.12.0/dist/tf.min.js"></script>-->
+
+
     <script src="https://requirejs.org/docs/release/2.3.5/minified/require.js"></script>
     <script src="styleJs.js"> </script>
     <script src="app.js">
+    
+    
         
     </script>
 </body>
