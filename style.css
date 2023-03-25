@@ -10,6 +10,7 @@ body
     min-height: 100vh;
     background-image: url(./assets/un.jpg);
     background-size: cover;
+
 }
 header
 {
@@ -59,14 +60,14 @@ header a img
 
 .convo
 {
-    font-size: 16px;
+    font-size: 20px;
     font-family: sans-serif;
     display: flex;
     position: relative;
     height: 400px;
     width: 300px;
     padding: 30px;
-    border-radius: 25px;
+    border-radius: 40px;
     justify-content: flex-start;
     flex-direction: column;
     background-color: rgba(255, 255, 255, 0.151);
@@ -87,7 +88,92 @@ header a img
     padding-right: 40px;
     margin-top: 45px;
 }
+
 /* Style the select element */
+/* 
+.wrapper{
+    width:370px;
+    margin: 130px auto 0;
+}
+
+.select-btn{
+    height: 45px;
+    font-size:20px;
+    color: #000000;
+    align-items: center;
+    display: flex;
+    padding: 0 20px;
+    cursor: pointer;
+    border-radius: 7px;
+    background: white;
+    justify-content: space-between;
+}
+.select-btn i{
+    font-family: 31px;
+}
+.content{
+    color: #000000;
+    padding: 20px;
+    margin-top: 15px;
+    border-radius: 7px;
+    background: white;
+}
+.content .search{
+    position: relative;
+}
+
+.search i{
+    left: 15px;
+    line-height: 53px;
+    position: absolute;
+}
+
+.search input{
+    height: 43px;
+    width: 80%;
+    outline: none;
+    font-size: 17px;
+    border-radius: 5px;
+    padding: 0 15px 0 43px;
+    border: 1px solid rgb(75, 75, 75);
+}
+.content .options{
+    margin-top: 10px;
+    max-height: 250px;
+    overflow-y: auto;
+    
+}
+
+.options li{
+    height:50px;
+    padding: 0 13px;
+    font-size:  20px;
+    border-radius: 5px;
+}
+.options li:hover{
+    background-color: #fffbfb;
+} */
+
+.access{
+    position: relative;
+    margin-top:110%;
+    margin-left: 50%;
+    
+}
+
+.access_button{
+    
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  text-align: center;
+  color: #ffffff;
+  background-color: #5f77e4be;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: 0.3s ease; 
+    
+}
 
 #language {
     
@@ -99,6 +185,7 @@ header a img
     border-radius: 15px;
     background-color: #000000d7;
     color: #ffffff;
+    overflow-y: auto;
   }
   
   /* Style the option elements */
@@ -112,6 +199,14 @@ header a img
   }
   
 
+#access:hover
+{
+    border-color: rgb(58, 143, 255);
+    color: rgb(58, 143, 255);
+    transition: 0.8s;
+    cursor: pointer;
+}
+  
 .btn
 {
     background-color: transparent;
@@ -138,23 +233,48 @@ header a img
         min-height: 100vh;
         background-size: cover;
     }
+    header img{
+        position: relative;
+        margin-bottom: 10%;
+        margin-left: 40% ;
 
+    }
     .convo
     {
         position: relative;
-        left: 50%;
+       
     }
 
     .lcol img
     {
         display: none;
-    }
+        position: absolute;
+        
+        }
+
     .rcol
     {
-        margin: 40%;
+        margin: 10%;
+        margin-top: 10%;
+        margin-left:10% ;
     }
     .btn{
         margin-top: 90px;
         margin-right: 0;
     }
+    #text2{
+        position: relative;
+        align-items: left;
+    }
+    .btn{
+   position: absolute;
+   padding: 10px 50px;
+    }
+    .access{
+        position: relative;
+        margin-top:90%;
+        margin-left: 50%;
+        
+    }
+    
 }
