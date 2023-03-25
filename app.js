@@ -743,50 +743,58 @@ function getLocation(output_language) {
 //general talk..................................................................................................................................
 
 // Function to send user query to ChatGPT using OpenAI API
-function generateResponse(input,language) {
-    const prompt = "Hello, how can I help you today?";
-    const temperature = 0.7;
-    const maxTokens = 10;
-    let output_language = language;
 
-    $.ajax({
-      url: "https://api.openai.com/v1/engines/davinci/completions",
-      type: "POST",
-      beforeSend: function(xhr) {
-        xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.setRequestHeader("Authorization", "Bearer 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");
-      },
-      data: JSON.stringify({
-        prompt,
-        temperature,
-        max_tokens: maxTokens,
-        prompt: input,
-      }),
-      success: function(result) {
-        const response = result.choices[0].text.trim();
-        if (response.length > 0) {
-          $("#text2").text(response);
-          var result = $("#text2").text();
-        }
-        console.log(result)
-        output_translate(result,output_language)
-      },
-      error: function(_xhr, _status, error) {
-        console.log("Error:", error);
-        result = "sorry i don't know , i could get this from google for you"
-        output_translate(result,output_language)
-        window.open(`https://www.google.com/search?q=${input.replace(" ", "+")}`, "_blank");
-        const finalText = "This is what i found on internet regarding " + input;
-        output_translate(finalText,output_language)
-        
-      },
-    });
-  }
+// function generateResponse(input, language) {
+//     const prompt = "Hello, how can I help you today?";
+//     const temperature = 0.5;
+//     const maxTokens = 20;
+//     let output_language = language;
+  
+//     $.ajax({
+//       url: "https://api.openai.com/v1/engines/davinci/completions",
+//       type: "POST",
+//       beforeSend: function(xhr) {
+//         xhr.setRequestHeader("Content-Type", "application/json");
+//         xhr.setRequestHeader("Authorization", "Bearer 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");
+//       },
+//       data: JSON.stringify({
+//         prompt,
+//         temperature,
+//         max_tokens: maxTokens,
+//         prompt: input,
+//         n: 1, // limit response to 1
+//         stop: "\n" // stop generation at the first line break
+//       }),
+//       success: function(result) {
+//         const response = result.choices[0].text.trim();
+//         if (response.length > 0) {
+//           $("#text2").text(response);
+//           var result = $("#text2").text();
+//         }
+       
+//         output_translate(result,output_language)
+//       },
+//       error: function(_xhr, _status, error) {
+//         console.log("Error:", error);
+//         result = "Sorry, I don't know. Shall I search the internet for you?";
+//         output_translate(result,output_language);
+//         window.open(`https://www.google.com/search?q=${input.replace(" ", "+")}`, "_blank");
+//         const finalText = "This is what I found on the internet regarding " + input;
+//         output_translate(finalText,output_language);
+//       },
+//     });
+//   }
+  
+  
 
   // Handle form submission
  
 
-
+//   output_translate(result,output_language)
+//   window.open(`https://www.google.com/search?q=${input.replace(" ", "+")}`, "_blank");
+//   const finalText = "This is what i found on internet regarding " + input;
+//   output_translate(finalText,output_language)
+  
 
 
 
@@ -812,9 +820,34 @@ function generateResponse(input,language) {
 //   //createTaskReminder(task, time);
   
 
+//intro speech..............................................................................................................................................................................................
+
+//module main to run all process........................................................................................................................................................................
 
 
-//module main to run all process..............................................................................................................
+
+function intro(){
+    const language = document.getElementById("language").value;
+    output_translate("Im jarvis ,An AI based voice assistant ",language);
+    output_translate(" I Can do many things such as Forecasting about weather, Opening Google , Wikipedia, instagram, facebook",language);
+    output_translate("I Can help you 24 hours and 7 Days a week",language);
+    document.getElementById("text2").innerHTML = "Im jarvis ,An AI based voice assistant" ;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+//load event................................................................................................................................................................................................
 
 window.addEventListener("load",()=>{
 
@@ -971,8 +1004,10 @@ function speakThis(message) {
     else if(message.includes('tell me a joke')) {
         speak("yep",output_language);
         acquireJoke(output_language);
-
        
+    }
+    else if(message.includes('intro yourself')||(message.includes("tell me about yourself"))){
+        intro();
     }
     else if(message.includes('its not funny')||(message.includes("the joke is not funny"))) {
         const finalText = "yep ,i can do even better ask me again";
@@ -988,7 +1023,7 @@ function speakThis(message) {
         output_translate(finalText, output_language)
     }
 
-    else if(message.includes('what is the weather of' )|| message.includes('in' )|| message.includes('temperature')) {
+    else if(message.includes('weather')|| message.includes('temperature')) {
         
         weather(message,output_language)
     } 
@@ -1051,13 +1086,14 @@ function speakThis(message) {
     }
         
     else {
-
-
-
-
-        const userInput = message;
+        const UserInput = message;
+        result = "Sorry, I don't know. Shall I search the internet for you?";
+        output_translate(result,output_language);
+        window.open(`https://www.google.com/search?q=${UserInput.replace(" ", "+")}`, "_blank");
+        const finalText = "This is what I found on the internet regarding " + UserInput;
+        output_translate(finalText,output_language);
         
-        generateResponse(userInput,output_language);
+        //generateResponse(userInput,output_language);
         
     }
    
@@ -1085,3 +1121,4 @@ function speakThis(message) {
 
 
 //module to get location........................................................................................................................
+
