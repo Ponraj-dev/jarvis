@@ -153,9 +153,9 @@ access_button();
 document.querySelector(".access").addEventListener('click', () => {
     if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Tablet/i.test(navigator.userAgent)) {
         console.log('Mobile device detected');
-        speak(" i Need a conformation to open any app in your device,click the button");
-        var urlScheme = "spotify:track:" + trackUri;
-         window.location.href = urlScheme;
+       
+        var urlScheme = "spotify://";
+        window.location.href = urlScheme;
       }
       else {
         
