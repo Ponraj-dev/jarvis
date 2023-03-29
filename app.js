@@ -149,20 +149,23 @@ document.querySelector(".access").addEventListener('click', () => {
 function Spotify(){
 
 // Open the WhatsApp application with a pre-populated message
+if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Tablet/i.test(navigator.userAgent)) {
 access_button();
 document.querySelector(".access").addEventListener('click', () => {
-    if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Tablet/i.test(navigator.userAgent)) {
+   
         console.log('Mobile device detected');
        
         var urlScheme = "spotify://";
         window.location.href = urlScheme;
+    });
+
       }
-      else {
+else{
         
         window.open("https://open.spotify.com/", "_blank");
-      }
+    }
      
-  });
+
 }
 
 
@@ -1016,11 +1019,11 @@ function speakThis(message) {
         output_translate(finalText, output_language);
         whatsapp();
     }
-    else if (message.includes('play music')||(message.includes("i want to hear some music"))) {
+    else if (message.includes('play music')||(message.includes("i want to hear some music"))||(message.includes("open spotify"))) {
         
         finalText=" yeah sure asking sportify to play music";
         output_translate(finalText, output_language);
-        Spotify(splitewords(message));
+        Spotify();
        
     }
 
