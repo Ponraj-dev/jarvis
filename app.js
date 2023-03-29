@@ -61,6 +61,9 @@ function splitewords(sentence){
             else if(name=="hello"&&name=="to"){
                 name=s[l+1]
             }
+            else if(name=="play"){
+                name=s[l+1]
+            }
             else if(name=="into"){
                 name=s[l-1];
             }
@@ -141,6 +144,33 @@ document.querySelector(".access").addEventListener('click', () => {
 }
 
 
+//sportify................................................................................................................................................
+
+function Spotify(){
+
+// Open the WhatsApp application with a pre-populated message
+access_button();
+document.querySelector(".access").addEventListener('click', () => {
+    if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Tablet/i.test(navigator.userAgent)) {
+        console.log('Mobile device detected');
+        speak(" i Need a conformation to open any app in your device,click the button");
+        var urlScheme = "spotify:track:" + trackUri;
+         window.location.href = urlScheme;
+      }
+      else {
+        
+        window.open("https://open.spotify.com/", "_blank");
+      }
+     
+  });
+}
+
+
+
+
+
+
+
 
 //module to identification.........................................................................................................
 
@@ -173,7 +203,7 @@ function userName(sentence)
     return name
 }
 
-//module for local storage.....................................................................................................
+//module for local storage.....................................................................................................................................................
 
 
 function localStoragenew(){
@@ -188,7 +218,7 @@ function localStoragenew(){
 
     }
 
-// //notification .................................................................................................................
+// //notification ..............................................................................................................................................................
 // function notification(){
 //     // check if the browser supports the Notification API
 // if ("Notification" in window) {
@@ -218,7 +248,7 @@ function localStoragenew(){
 
 
 
-//module to translator.........................................................................................................
+//module to translator.........................................................................................................................................................
 
 // Create a function to translate text
 // Create a function that takes two parameters: text and language
@@ -344,7 +374,7 @@ async function output_translate(string,language) {
 
 
 
-// Call the function with a string and language
+// Call the function with a string and language...............................................................................................................................
 
 
 function language(){
@@ -357,7 +387,7 @@ return langu
 
 
 
-//module to female voice......................................................................................................
+//module to female voice.................................................................................................................................................
 
 function femaleVoice(){
       
@@ -744,61 +774,83 @@ function getLocation(output_language) {
 
 // Function to send user query to ChatGPT using OpenAI API
 
-// function generateResponse(input, language) {
-//     const prompt = "Hello, how can I help you today?";
-//     const temperature = 0.5;
-//     const maxTokens = 20;
-//     let output_language = language;
+function generateResponse(input, language) {
+    const prompt = "Hi, I'm your personal assistant. How can I assist you today? ";
+    const temperature = 0.5;
+    const maxTokens = 20;
+    let output_language = language;
   
-//     $.ajax({
-//       url: "https://api.openai.com/v1/engines/davinci/completions",
-//       type: "POST",
-//       beforeSend: function(xhr) {
-//         xhr.setRequestHeader("Content-Type", "application/json");
-//         xhr.setRequestHeader("Authorization", "Bearer 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");
-//       },
-//       data: JSON.stringify({
-//         prompt,
-//         temperature,
-//         max_tokens: maxTokens,
-//         prompt: input,
-//         n: 1, // limit response to 1
-//         stop: "\n" // stop generation at the first line break
-//       }),
-//       success: function(result) {
-//         const response = result.choices[0].text.trim();
-//         if (response.length > 0) {
-//           $("#text2").text(response);
-//           var result = $("#text2").text();
-//         }
+    $.ajax({
+      url: "https://api.openai.com/v1/engines/davinci/completions",
+      type: "POST",
+      beforeSend: function(xhr) {
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.setRequestHeader("Authorization", "Bearer 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");
+      },
+      data: JSON.stringify({
+        prompt,
+        temperature,
+        max_tokens: maxTokens,
+        prompt: input,
+        n: 1, // limit response to 1
+        stop: "\n" // stop generation at the first line break
+      }),
+      success: function(result) {
+        const response = result.choices[0].text.trim();
+        if (response.length > 0) {
+          $("#text2").text(response);
+          var result = $("#text2").text();
+        }
        
-//         output_translate(result,output_language)
-//       },
-//       error: function(_xhr, _status, error) {
-//         console.log("Error:", error);
-//         result = "Sorry, I don't know. Shall I search the internet for you?";
-//         output_translate(result,output_language);
-//         window.open(`https://www.google.com/search?q=${input.replace(" ", "+")}`, "_blank");
-//         const finalText = "This is what I found on the internet regarding " + input;
-//         output_translate(finalText,output_language);
-//       },
-//     });
-//   }
+        output_translate(result,output_language)
+      },
+      error: function(_xhr, _status, error) {
+        console.log("Error:", error);
+        result = "Sorry, I don't know. Shall I search the internet for you?";
+        output_translate(result,output_language);
+        window.open(`https://www.google.com/search?q=${input.replace(" ", "+")}`, "_blank");
+        const finalText = "This is what I found on the internet regarding " + input;
+        output_translate(finalText,output_language);
+      },
+    });
+  }
   
   
 
   // Handle form submission
- 
+
 
 //   output_translate(result,output_language)
 //   window.open(`https://www.google.com/search?q=${input.replace(" ", "+")}`, "_blank");
 //   const finalText = "This is what i found on internet regarding " + input;
 //   output_translate(finalText,output_language)
   
+//.................................................................................................................................................................................
+// function generateEntityInfo(entity) {
+//     const apiKey = 'YOUR_API_KEY';
+//     const apiUrl = `https://kgsearch.googleapis.com/v1/entities:search?query=${entity}&key=${apiKey}`;
+  
+//     fetch(apiUrl)
+//       .then(response => response.json())
+//       .then(data => {
+//         const description = data.itemListElement[0].result.detailedDescription.articleBody;
+  
+//         const descriptionElement = document.createElement('p');
+//         descriptionElement.innerText = description;
+  
+//         document.body.appendChild(descriptionElement);
+//       });
+//   }
+  
 
 
 
-// Define the function to create the task reminder..............................................................................................
+
+
+
+
+
+// Define the function to create the task reminder..................................................................................................................................
 
 
 // function createTaskReminder(task, time) {
@@ -852,31 +904,32 @@ function intro(){
 window.addEventListener("load",()=>{
 
   //  speak_check(textToSpeech);
-    
+  //generateEntityInfo('Paris');
+       
 //     music();
         speak("Initiating system");
-        speak("Activating jarvis");
-       // notification();
+         speak("Activating jarvis");
+//        // notification();
       
        
-        //whatsapp();
-      //translate('I\'m jarvis ,An A I based voice assistant ', 'ta'); // Hola mundo
+//         //whatsapp();
+//       //translate('I\'m jarvis ,An A I based voice assistant ', 'ta'); // Hola mundo
     
      
         
-//     femaleVoice("Im jarvis ,An AI based voice assistant ","ta")
-//     //battery();
+// //     femaleVoice("Im jarvis ,An AI based voice assistant ","ta")
+// //     //battery();
        
-          wishMe();
-// //    // userName("i am ponraj") ;
-//        localStoragenew();
+//           wishMe();
+// // //    // userName("i am ponraj") ;
+// //        localStoragenew();
     
-        //startTime();
+     startTime();
         speak("Let me give a quick intro about me");
         speak("Im jarvis ,An AI based voice assistant ");
         speak(" I Can do many things such as Forecasting about weather, Opening Google , Wikipedia, instagram, facebook");
         speak("I Can help you 24 hours and 7 Days a week");
-        document.getElementById("text2").innerHTML = "Activating jarvis";
+     //   document.getElementById("text2").innerHTML = "Activating jarvis";
         
      // weather();
 
@@ -962,9 +1015,13 @@ function speakThis(message) {
         finalText=" i Need a conformation to open any app in your device,   click the button to confrim";
         output_translate(finalText, output_language);
         whatsapp();
-
-
-
+    }
+    else if (message.includes('play music')||(message.includes("i want to hear some music"))) {
+        
+        finalText=" yeah sure asking sportify to play music";
+        output_translate(finalText, output_language);
+        Spotify(splitewords(message));
+       
     }
 
  
@@ -1086,14 +1143,14 @@ function speakThis(message) {
     }
         
     else {
-        const UserInput = message;
-        result = "Sorry, I don't know. Shall I search the internet for you?";
-        output_translate(result,output_language);
-        window.open(`https://www.google.com/search?q=${UserInput.replace(" ", "+")}`, "_blank");
-        const finalText = "This is what I found on the internet regarding " + UserInput;
-        output_translate(finalText,output_language);
+         const UserInput = message;
+        // result = "Sorry, I don't know. Shall I search the internet for you?";
+        // output_translate(result,output_language);
+        // window.open(`https://www.google.com/search?q=${UserInput.replace(" ", "+")}`, "_blank");
+        // const finalText = "This is what I found on the internet regarding " + UserInput;
+        // output_translate(finalText,output_language);
         
-        //generateResponse(userInput,output_language);
+        generateResponse(UserInput,output_language);
         
     }
    
@@ -1121,4 +1178,6 @@ function speakThis(message) {
 
 
 //module to get location........................................................................................................................
+
+//music play....................................................................................................................................
 
