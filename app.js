@@ -803,7 +803,7 @@ fetch(url)
     // process the articles as needed
   })
   .catch(error => {
-    output_translate("sorry i can't get any news.."+langauge)
+    output_translate("sorry i can't get any news..",language)
     console.error(error);
   });
 
@@ -974,7 +974,7 @@ window.addEventListener("load",()=>{
 // // //    // userName("i am ponraj") ;
 // //        localStoragenew();
     
-        startTime();
+     startTime();
         speak("Let me give a quick intro about me");
         speak("Im jarvis ,An AI based voice assistant ");
         speak(" I Can do many things such as Forecasting about weather, Opening Google , Wikipedia, instagram, facebook");
