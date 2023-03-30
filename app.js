@@ -172,9 +172,6 @@ else{
 
 
 
-
-
-
 //module to identification.........................................................................................................
 
 
@@ -771,6 +768,55 @@ function getLocation(output_language) {
 
 
 
+//current news...................................................................................................................................
+
+function newReader(input,language){
+const apiKey = '8bd65b271739450a9bd5f7c7e1bcb837';
+const location = 'Tamil Nadu'; // replace with your desired location
+
+
+
+// const districts = [
+//     'Ariyalur','Chennai','Coimbatore',    'Cuddalore','Dharmapuri',    'Dindigul','Erode',    'Kanchipuram','Kanyakumari',    'Karur',    'Krishnagiri',    'Madurai',    
+//     'Nagapattinam',    'Namakkal',   'Perambalur', 'Pudukkottai',  'Ramanathapuram',    'Salem',  'Sivaganga',
+//     'Thanjavur','The Nilgiris','Theni','Thiruvallur','Thiruvarur','Thoothukudi','Tiruchirappalli',
+//     'Tirunelveli','Tirupathur','Tiruppur','Tiruvannamalai','Vellore','Viluppuram','Virudhunagar'
+//   ];
+  
+
+const url = `https://newsapi.org/v2/everything?q=${location}&language=en&apiKey=${apiKey}`;
+
+
+fetch(url)
+  .then(response => response.json())
+  .then(data => {
+    
+    const newsNumber = Math.floor(Math.random() * data.articles.length)
+    console.log(newsNumber)
+    console.log(data.articles);
+    console.log(data.articles[0].title)
+    console.log(data.articles[0].description)
+     
+    const news ="title : "+ data.articles[newsNumber].title+".,"+data.articles[newsNumber].description ;
+    output_translate(news,language)
+    
+    // process the articles as needed
+  })
+  .catch(error => {
+    output_translate("sorry i can't get any news.."+langauge)
+    console.error(error);
+  });
+
+
+
+
+}
+
+
+
+
+
+
 
 
 //general talk..................................................................................................................................
@@ -778,7 +824,7 @@ function getLocation(output_language) {
 // Function to send user query to ChatGPT using OpenAI API
 
 function generateResponse(input, language) {
-    const prompt = "Hi, I'm your personal assistant. How can I assist you today? ";
+    const prompt = input;
     const temperature = 0.5;
     const maxTokens = 20;
     let output_language = language;
@@ -788,7 +834,7 @@ function generateResponse(input, language) {
       type: "POST",
       beforeSend: function(xhr) {
         xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.setRequestHeader("Authorization", "Bearer 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");
+        xhr.setRequestHeader("Authorization", "Bearer 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");
       },
       data: JSON.stringify({
         prompt,
@@ -908,13 +954,14 @@ window.addEventListener("load",()=>{
 
   //  speak_check(textToSpeech);
   //generateEntityInfo('Paris');
+  
        
 //     music();
         speak("Initiating system");
          speak("Activating jarvis");
 //        // notification();
       
-       
+      
 //         //whatsapp();
 //       //translate('I\'m jarvis ,An A I based voice assistant ', 'ta'); // Hola mundo
     
@@ -927,7 +974,7 @@ window.addEventListener("load",()=>{
 // // //    // userName("i am ponraj") ;
 // //        localStoragenew();
     
-     startTime();
+        startTime();
         speak("Let me give a quick intro about me");
         speak("Im jarvis ,An AI based voice assistant ");
         speak(" I Can do many things such as Forecasting about weather, Opening Google , Wikipedia, instagram, facebook");
@@ -1019,11 +1066,19 @@ function speakThis(message) {
         output_translate(finalText, output_language);
         whatsapp();
     }
-    else if (message.includes('play music')||(message.includes("i want to hear some music"))||(message.includes("open spotify"))) {
+    else if (message.includes('play music')||(message.includes("some music"))||(message.includes("open spotify"))) {
         
         finalText=" yeah sure asking sportify to play music";
         output_translate(finalText, output_language);
         Spotify();
+       
+    }
+
+    else if (message.includes('remind me')||(message.includes("set reminder"))||(message.includes("remember me"))){
+        
+        finalText=" yeah sure, here a website you can set what erver you want";
+        output_translate(finalText, output_language);
+        window.open("https://ponraj-dev.github.io/Do-IT/", "_blank");
        
     }
 
@@ -1033,6 +1088,13 @@ function speakThis(message) {
         finalText="hello "+splitewords(message)+" nice to meet you ";
         output_translate(finalText, output_language)
     }
+    
+    else if (message.includes('you are a great person')) {
+        
+        finalText="sorry ,i'm a assistant";
+        output_translate(finalText, output_language)
+    }
+
 
     else if(message.includes('name')) {
 
@@ -1081,6 +1143,12 @@ function speakThis(message) {
         window.open("https://google.com", "_blank");
         const finalText = "Opening Google";
         output_translate(finalText, output_language)
+    }
+
+    else if(message.includes('news')) {
+        const finalText = "here the recent news i got for you";
+        output_translate(finalText, output_language)
+        newReader(message,output_language)
     }
 
     else if(message.includes('weather')|| message.includes('temperature')) {
