@@ -447,7 +447,15 @@ function speak(sentence,language){
 
      utterance.text = sentence;
 
-   
+    if (language =="en-US"){
+        utterance.pitch=2;
+        utterance.rate=0.7;
+    }
+    if( language=="ta")
+    {
+        utterance.pitch = 2; 
+        utterance.rate=0.7;
+    }
     speechSynthesis.speak(utterance);
     document.getElementById("text2").innerHTML =  sentence;
 
@@ -770,50 +778,81 @@ function getLocation(output_language) {
 
 //current news...................................................................................................................................
 
-function newReader(input,language){
-const apiKey = '8bd65b271739450a9bd5f7c7e1bcb837';
-const location = 'Tamil Nadu'; // replace with your desired location
+
+// function newReader(input,language){
+//     // replace with your desired location
+//     const comment= input;
+//     console.log(comment)
+    
+    
+    
+//     // const districts = [
+//     //     'Ariyalur','Chennai','Coimbatore',    'Cuddalore','Dharmapuri',    'Dindigul','Erode',    'Kanchipuram','Kanyakumari',    'Karur',    'Krishnagiri',    'Madurai',    
+//     //     'Nagapattinam',    'Namakkal',   'Perambalur', 'Pudukkottai',  'Ramanathapuram',    'Salem',  'Sivaganga',
+//     //     'Thanjavur','The Nilgiris','Theni','Thiruvallur','Thiruvarur','Thoothukudi','Tiruchirappalli',
+//     //     'Tirunelveli','Tirupathur','Tiruppur','Tiruvannamalai','Vellore','Viluppuram','Virudhunagar'
+//     //   ];
+     
+    
+     
+//     const access_key = '2720e6ca9665e312e3205fdd33f48c3c'; // Replace with your own access key
+//     const endpoint = `http://api.mediastack.com/v1/news?access_key=${access_key}&languages=en&keywords=Tamil%20Nadu`;
+    
+//     fetch(url)
+//       .then(response => response.json())
+//       .then(data => {
+        
+//          const newsNumber = Math.floor(Math.random() * data.articles.length)
+//         console.log(newsNumber)
+//         console.log(data.articles);
+//         console.log(data.articles[0].title)
+//         console.log(data.articles[0].description)
+         
+//         const news ="title : "+ data.articles[newsNumber].title+".,"+data.articles[newsNumber].description ;
+//         output_translate(news,language)
+        
+//         // process the articles as needed
+//       })
+//       .catch(error => {
+//         output_translate("sorry i can't get any news..",language)
+//         console.error(error);
+//       });
 
 
 
-// const districts = [
-//     'Ariyalur','Chennai','Coimbatore',    'Cuddalore','Dharmapuri',    'Dindigul','Erode',    'Kanchipuram','Kanyakumari',    'Karur',    'Krishnagiri',    'Madurai',    
-//     'Nagapattinam',    'Namakkal',   'Perambalur', 'Pudukkottai',  'Ramanathapuram',    'Salem',  'Sivaganga',
-//     'Thanjavur','The Nilgiris','Theni','Thiruvallur','Thiruvarur','Thoothukudi','Tiruchirappalli',
-//     'Tirunelveli','Tirupathur','Tiruppur','Tiruvannamalai','Vellore','Viluppuram','Virudhunagar'
-//   ];
-  
-
-const url = `https://newsapi.org/v2/everything?q=${location}&language=en&apiKey=${apiKey}`;
+// }
 
 
-fetch(url)
+function SubNewsReader(){
+    const access_key = '2720e6ca9665e312e3205fdd33f48c3c'; // Replace with your own access key
+    const sources = 'the-times-of-india, the-hindu, indian-express, news18, ndtv';
+
+    const endpoint = `http://api.mediastack.com/v1/news?access_key=${access_key}&languages=en&sources=${sources}`;
+    
+
+ let language = document.getElementById("language").value;;
+
+fetch(endpoint)
   .then(response => response.json())
   .then(data => {
+    // Process the data and display the news articles
+    const newsNumber = Math.floor(Math.random() * data.data.length)
+   
+    console.log(data);
     
-    const newsNumber = Math.floor(Math.random() * data.articles.length)
-    console.log(newsNumber)
-    console.log(data.articles);
-    console.log(data.articles[0].title)
-    console.log(data.articles[0].description)
-     
-    const news ="title : "+ data.articles[newsNumber].title+".,"+data.articles[newsNumber].description ;
-    output_translate(news,language)
-    
-    // process the articles as needed
+
+    var news = data.data[newsNumber].title;
+    output_translate(news,language);
+
+    var news = data.data[newsNumber].description ;
+    output_translate(news,language);
   })
   .catch(error => {
-    output_translate("sorry i can't get any news..",language)
+    output_translate("sorry i can't get any news..",language);
     console.error(error);
   });
 
-
-
-
 }
-
-
-
 
 
 
@@ -1148,7 +1187,8 @@ function speakThis(message) {
     else if(message.includes('news')) {
         const finalText = "here the recent news i got for you";
         output_translate(finalText, output_language)
-        newReader(message,output_language)
+       SubNewsReader()
+        //newReader(message,output_language)
     }
 
     else if(message.includes('weather')|| message.includes('temperature')) {
