@@ -779,129 +779,137 @@ function getLocation(output_language) {
 //current news...................................................................................................................................
 
 
-// function newReader(input,language){
-//     // replace with your desired location
-//     const comment= input;
-//     console.log(comment)
+function newReader(input,language){
+    // replace with your desired location
+    const comment= input;
+    console.log(comment)
     
     
     
-//     // const districts = [
-//     //     'Ariyalur','Chennai','Coimbatore',    'Cuddalore','Dharmapuri',    'Dindigul','Erode',    'Kanchipuram','Kanyakumari',    'Karur',    'Krishnagiri',    'Madurai',    
-//     //     'Nagapattinam',    'Namakkal',   'Perambalur', 'Pudukkottai',  'Ramanathapuram',    'Salem',  'Sivaganga',
-//     //     'Thanjavur','The Nilgiris','Theni','Thiruvallur','Thiruvarur','Thoothukudi','Tiruchirappalli',
-//     //     'Tirunelveli','Tirupathur','Tiruppur','Tiruvannamalai','Vellore','Viluppuram','Virudhunagar'
-//     //   ];
+    // const districts = [
+    //     'Ariyalur','Chennai','Coimbatore',    'Cuddalore','Dharmapuri',    'Dindigul','Erode',    'Kanchipuram','Kanyakumari',    'Karur',    'Krishnagiri',    'Madurai',    
+    //     'Nagapattinam',    'Namakkal',   'Perambalur', 'Pudukkottai',  'Ramanathapuram',    'Salem',  'Sivaganga',
+    //     'Thanjavur','The Nilgiris','Theni','Thiruvallur','Thiruvarur','Thoothukudi','Tiruchirappalli',
+    //     'Tirunelveli','Tirupathur','Tiruppur','Tiruvannamalai','Vellore','Viluppuram','Virudhunagar'
+    //   ];
      
     
      
-//     const access_key = '2720e6ca9665e312e3205fdd33f48c3c'; // Replace with your own access key
-//     const endpoint = `http://api.mediastack.com/v1/news?access_key=${access_key}&languages=en&keywords=Tamil%20Nadu`;
+    const access_key = '8bd65b271739450a9bd5f7c7e1bcb837'; // Replace with your own access key
+   // const endpoint = `http://api.mediastack.com/v1/news?access_key=${access_key}&languages=en&keywords=Tamil%20Nadu`;
+    const url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=${access_key}`;
+
     
-//     fetch(url)
-//       .then(response => response.json())
-//       .then(data => {
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
         
-//          const newsNumber = Math.floor(Math.random() * data.articles.length)
-//         console.log(newsNumber)
-//         console.log(data.articles);
-//         console.log(data.articles[0].title)
-//         console.log(data.articles[0].description)
+         const newsNumber = Math.floor(Math.random() * data.articles.length)
+        console.log(newsNumber)
+        console.log(data.articles);
+        console.log(data.articles[newsNumber].title)
+        console.log(data.articles[newsNumber].description)
          
-//         const news ="title : "+ data.articles[newsNumber].title+".,"+data.articles[newsNumber].description ;
-//         output_translate(news,language)
-        
-//         // process the articles as needed
-//       })
-//       .catch(error => {
-//         output_translate("sorry i can't get any news..",language)
-//         console.error(error);
-//       });
+       
+
+        var news = data.articles[newsNumber].title;
+        output_translate(news,language);
+    
+        var news = data.articles[newsNumber].description ;
+        output_translate(news,language);
+        // process the articles as needed
+      })
+      .catch(error => {
+        output_translate("sorry i can't get any news..",language)
+        console.error(error);
+      });
 
 
+
+ }
+
+
+// function SubNewsReader(){
+//     const access_key = '2720e6ca9665e312e3205fdd33f48c3c';
+//    // const access_key = '989b71d1c2042476586e5d3584b6e7cab'
+//   //  const access_key = '513a4a8014b29e8be8fab07f78cc9567'; // Replace with your own access key
+  
+
+//     const endpoint = `http://api.mediastack.com/v1/news?access_key=${access_key}&languages=en`;
+    
+//  let language = document.getElementById("language").value;;
+
+
+// fetch(endpoint)
+//   .then(response => response.json())
+//   .then(data => {
+//     // Process the data and display the news articles
+//     const newsNumber = Math.floor(Math.random() * data.data.length)
+   
+//     console.log(data);
+    
+
+    // var news = data.data[newsNumber].title;
+    // output_translate(news,language);
+
+    // var news = data.data[newsNumber].description ;
+    // output_translate(news,language);
+//   })
+//   .catch(error => {
+//     output_translate("sorry i can't get any news..",language);
+//     console.error(error);
+//   });
 
 // }
 
 
-function SubNewsReader(){
-    const access_key = '2720e6ca9665e312e3205fdd33f48c3c'; // Replace with your own access key
-    const sources = 'the-times-of-india, the-hindu, indian-express, news18, ndtv';
-
-    const endpoint = `http://api.mediastack.com/v1/news?access_key=${access_key}&languages=en&sources=${sources}`;
-    
-
- let language = document.getElementById("language").value;;
-
-fetch(endpoint)
-  .then(response => response.json())
-  .then(data => {
-    // Process the data and display the news articles
-    const newsNumber = Math.floor(Math.random() * data.data.length)
-   
-    console.log(data);
-    
-
-    var news = data.data[newsNumber].title;
-    output_translate(news,language);
-
-    var news = data.data[newsNumber].description ;
-    output_translate(news,language);
-  })
-  .catch(error => {
-    output_translate("sorry i can't get any news..",language);
-    console.error(error);
-  });
-
-}
 
 
 
+// //general talk..................................................................................................................................
 
+// // Function to send user query to ChatGPT using OpenAI API
 
-//general talk..................................................................................................................................
-
-// Function to send user query to ChatGPT using OpenAI API
-
-function generateResponse(input, language) {
-    const prompt = input;
-    const temperature = 0.5;
-    const maxTokens = 20;
-    let output_language = language;
+// function generateResponse(input, language) {
+//     const prompt = input;
+//     const temperature = 0.5;
+//     const maxTokens = 20;
+//     let output_language = language;
   
-    $.ajax({
-      url: "https://api.openai.com/v1/engines/davinci/completions",
-      type: "POST",
-      beforeSend: function(xhr) {
-        xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.setRequestHeader("Authorization", "Bearer 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");
-      },
-      data: JSON.stringify({
-        prompt,
-        temperature,
-        max_tokens: maxTokens,
-        prompt: input,
-        n: 1, // limit response to 1
-        stop: "\n" // stop generation at the first line break
-      }),
-      success: function(result) {
-        const response = result.choices[0].text.trim();
-        if (response.length > 0) {
-          $("#text2").text(response);
-          var result = $("#text2").text();
-        }
+//    $.ajax({
+//       url: "https://api.openai.com/v1/engines/davinci/completions",
+//       type: "POST",
+//       beforeSend: function(xhr) {
+//         xhr.setRequestHeader("Content-Type", "application/json");
+//         xhr.setRequestHeader("Authorization", "Bearer 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");
+//       },
+//       data: JSON.stringify({
+//         prompt,
+//         temperature,
+//         max_tokens: maxTokens,
+//         prompt: input,
+//         n: 1, // limit response to 1
+//         stop: "\n" // stop generation at the first line break
+//       }),
+//       success: function(result) {
+//         const response = result.choices[0].text.trim();
+//         if (response.length > 0) {
+//           $("#text2").text(response);
+//           var result = $("#text2").text();
+//         }
        
-        output_translate(result,output_language)
-      },
-      error: function(_xhr, _status, error) {
-        console.log("Error:", error);
-        result = "Sorry, I don't know. Shall I search the internet for you?";
-        output_translate(result,output_language);
-        window.open(`https://www.google.com/search?q=${input.replace(" ", "+")}`, "_blank");
-        const finalText = "This is what I found on the internet regarding " + input;
-        output_translate(finalText,output_language);
-      },
-    });
-  }
+//         output_translate(result,output_language)
+//       },
+//       error: function(_xhr, _status, error) {
+//         console.log("Error:", error);
+//         result = "Sorry, I don't know. Shall I search the internet for you?";
+//         output_translate(result,output_language);
+//         window.open(`https://www.google.com/search?q=${input.replace(" ", "+")}`, "_blank");
+//         const finalText = "This is what I found on the internet regarding " + input;
+//         output_translate(finalText,output_language);
+//       },
+//     });
+//   }
   
   
 
@@ -1187,8 +1195,8 @@ function speakThis(message) {
     else if(message.includes('news')) {
         const finalText = "here the recent news i got for you";
         output_translate(finalText, output_language)
-       SubNewsReader()
-        //newReader(message,output_language)
+       //SubNewsReader()
+        newReader(message,output_language)
     }
 
     else if(message.includes('weather')|| message.includes('temperature')) {
