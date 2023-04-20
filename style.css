@@ -14,23 +14,20 @@ body
 }
 header
 {
+    
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0px 50px;
 }
-
-.convo {
-    height: 300px; /* set the height to your desired value */
-    overflow: auto;
-}
-.convo::-webkit-scrollbar {
-    background-color: transparent;
-    border: none;
-}
-/* add any additional styling for the conversation module */
-
-
+#bg-video {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+    z-index: -1;
+  }
 .logo
 {
     height: 170px;
@@ -45,12 +42,24 @@ header a img
 }
 .container
 {
-    margin: 5px 10px;
+    margin: 0 5px;
     display: flex;
+    align-items: center;
     flex-wrap: wrap;
     padding: 5px;
     justify-content: space-between;
 }
+  
+.convo {
+    height: 300px; /* set the height to your desired value */
+    overflow: auto;
+}
+.convo::-webkit-scrollbar {
+    background-color: transparent;
+    border: none;
+}
+/* add any additional styling for the conversation module */
+
 .lcol
 {
     margin-left: 5%;
@@ -84,15 +93,17 @@ header a img
     background-color: rgba(255, 255, 255, 0.151);
     backdrop-filter: blur(10px);
 }
-#text1{
-    
+#text1
+{    
     position: absolute;
     width: auto;
     margin-top: 10px;
     right:20px;
     height: auto;
 }
-#text2{
+
+#text2
+{
     height: auto;
     position: absolute;
     width: auto;
@@ -186,18 +197,26 @@ header a img
     
 }
 
-#language {
-    
-    margin-left:90%;
-    margin-top: 2%;
+#language
+{
+    height: 40px;
+    width: 180px;
+    position: relative;
+    margin-left: 40%;
+    margin-top: 5%;
+    margin-bottom: 1%;
     font-size: 16px;
-    padding: 10px 40px;
-    border: #000000;
-    border-radius: 15px;
-    background-color: #000000d7;
+    padding: 10px 20px;
+    border: solid 1px #f7f7f7;
+    border-radius: 5px;
+    background-color: #0000007e;
     color: #ffffff;
     overflow-y: auto;
+
   }
+  ::-webkit-scrollbar {
+    display: none;
+}
   
   /* Style the option elements */
 #language option {
@@ -241,92 +260,34 @@ header a img
 
 
 
-/* for loading page */
-
-
-.loader {
-    width: 48px;
-    height: 48px;
-    margin: auto;
-    position: relative;
-  }
-  
-  .loader:before {
-    content: '';
-    width: 48px;
-    height: 5px;
-    background: #f0808050;
-    position: absolute;
-    top: 60px;
-    left: 0;
-    border-radius: 50%;
-    animation: shadow324 0.5s linear infinite;
-  }
-  
-  .loader:after {
-    content: '';
-    width: 100%;
-    height: 100%;
-    background: #f08080;
-    position: absolute;
-    top: 0;
-    left: 0;
-    border-radius: 4px;
-    animation: jump7456 0.5s linear infinite;
-  }
-  
-  @keyframes jump7456 {
-    15% {
-      border-bottom-right-radius: 3px;
-    }
-  
-    25% {
-      transform: translateY(9px) rotate(22.5deg);
-    }
-  
-    50% {
-      transform: translateY(18px) scale(1, .9) rotate(45deg);
-      border-bottom-right-radius: 40px;
-    }
-  
-    75% {
-      transform: translateY(9px) rotate(67.5deg);
-    }
-  
-    100% {
-      transform: translateY(0) rotate(90deg);
-    }
-  }
-  
-  @keyframes shadow324 {
-  
-    0%,
-      100% {
-      transform: scale(1, 1);
-    }
-  
-    50% {
-      transform: scale(1.2, 1);
-    }
-  }
-
-@media only screen and (max-width:810px) {
-    body{
+@media only screen and (max-width:820px) {
+    body
+    {
         min-height: 100vh;
+        background-repeat: no-repeat;
         background-size: cover;
     }
-    header img{
-        position: relative;
-        margin-bottom: 10%;
-        margin-left: 40% ;
-
-    }
-    .convo
+  
+    header img
     {
+        height: 25px;
+        width: 30px;
         position: relative;
+        
        
     }
 
+
+    .container
+{
+    margin: 5px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 5px;
+    justify-content: space-between;
+}
     .lcol img
     {
         display: none;
@@ -336,11 +297,13 @@ header a img
 
     .rcol
     {
-        margin: 10%;
-        margin-top: 10%;
-        margin-left:10% ;
+        
+        
+        margin-right:40% ;
     }
     .btn{
+        font-size: 10px;
+        border: solid white 1px;
         margin-top: 90px;
         margin-right: 0;
     }
@@ -348,16 +311,46 @@ header a img
         position: relative;
         align-items: left;
     }
+
     .btn{
-   position: absolute;
-   padding: 10px 50px;
+        position: absolute;
+        padding: 10px 50px;
+        margin-left: 30%;
     }
-    .access{
+
+    .access
+    {
         position: relative;
         margin-top:90%;
-        margin-left: 50%;
-        
+        margin-left: 50%;    
     }
+
+    #language
+{
+    height: 35px;
+    width: 100px;
+    position: relative;
+    margin-right:10%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    font-size: 12px;
+    padding: 10px 20px;
+    border: solid 1px #f7f7f7;
+    border-radius: 5px;
+    background-color: #0000007e;
+    color: #ffffff;
+    overflow-y: auto;
+  }
+  
+  /* Style the option elements */
+#language option {
+    font-size: 14px;
+    padding: 8px;
+   
+    border-radius: 4px;
+    background-color: #000000;
+    color: #fffbfb;
+  }
+  
     
 }
-
