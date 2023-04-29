@@ -5,48 +5,50 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="./style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Ysabeau:ital,wght@0,200;1,200&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./stylemain.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
    
 </head>
 <body>
+
     <header>
+  <!-- <video id="bg-video" src="./assets/new1.mp4" type="video/mp4" autoplay muted loop>
+    </video>-->
+
+        
+        <a href="./about.html">
+        <img src="./assets/asp.png" alt="asp"></a>
+         <img src="./assets/Picsart_23-02-26_16-16-35-496.png" alt="jarvis" class="logo">
    
-            <a href="./about.html">
-            <img src="./assets/asp.png" alt="asp"></a>
-            <img src="./assets/Picsart_23-02-26_16-16-35-496.png" alt="jarvis" class="logo">
     </header>
- 
+
     <div class="container" id="container">
         <div class="lcol">
-            <img src="./assets/giphy.gif" alt="jarvis" id="myGif">
+            <img src="./assets/wave.gif" alt="jarvis" id="myGif">
+            <!--<div id="canvas_container"></div>-->
         </div>
         <div class="rcol">
-            <div class="convo">
-            <div>
-                <p id="text1"> hey jarvis</p>
-            </div>
-            <div>     
-               <p id="text2">How can i Help you sir ?</p>
-            </div>
-            <div class="access">
+            <form class="convo" id="convo">
             
-            
+           
+            </form>
+             <div class="access">
                 
             </div>
-           
-            </div>
-             
         </div>
        
-    </div>
+    </div class="rowl">
     <button class="btn" id="start">Click here to Speak</button>
  
-    
-<form>
+
+
+    <form class="fr">
      
   <select id="language" class="langu">
-<option value="en-US">English (US)</option>
+<option id="op" value="en-US">English (US)</option>
 <option value="ta-IN">Tamil (India)</option>
 <option value="af-ZA">Afrikaans</option>
 <option value="sq-AL">Albanian</option>
@@ -206,7 +208,6 @@
 </form>
 
 
-
  <!--
 <div class="wrapper">
     <div class="select-btn">
@@ -245,17 +246,19 @@
             location.href="about.html";
             
         }
-    </script>
+    </script>-->
     
-     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.12.0/dist/tf.min.js"></script>-->
+        
 
-    
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.3/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.12.0/dist/tf.min.js"></script>
     <script src="https://requirejs.org/docs/release/2.3.5/minified/require.js"></script>
-    <script src="styleJs.js"> </script>
+    
     <script src="app.js">
     
     
         
     </script>
+    
 </body>
 </html>
