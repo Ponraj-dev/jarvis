@@ -1,0 +1,467 @@
+*
+{
+    padding: 0;
+    margin: 0;
+    font-family: 'Open Sans', sans-serif;
+font-family: 'Ysabeau', sans-serif;
+}
+body
+{
+    color: aliceblue;
+    min-height: 100vh;
+    background-image: url(./assets/un.jpg);
+    background-size: cover;
+}
+
+
+header
+{
+    
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 50px;
+}
+#bg-video {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+    z-index: -1;
+  }
+.logo
+{
+    height: 170px;
+    width: 170px;
+}
+::-webkit-scrollbar{
+    scrollbar-color:hidden ;
+    }
+header a img
+{
+    height: 90px;
+    width: 90px;
+    mix-blend-mode: lighten;
+}
+
+.container
+{
+    margin: 0 5px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 5px;
+    justify-content: space-between;
+}
+  
+.convo {
+    height: 300px; /* set the height to your desired value */
+    overflow: auto;
+}
+.convo::-webkit-scrollbar {
+    background-color: transparent;
+    border: none;
+}
+/* add any additional styling for the conversation module */
+
+.lcol
+{
+    margin-left: 5%;
+}
+
+.lcol img
+{
+    mix-blend-mode: lighten;
+    filter: grayscale(1);
+    height: 300px;
+    width:100;
+}
+
+.lcol img:hover
+{
+    cursor: pointer;
+    mix-blend-mode: lighten;
+    filter: saturate(0.9);
+    height: 300px;
+    width:100;
+}
+
+
+.rcol
+{
+    margin-right: 10%;
+}
+
+.convo
+{
+    cursor: grab;
+    font-size: 17px;
+    font-weight: 500;
+    font-family: sans-serif;
+    display: flex;
+    position: relative;
+    height: 400px;
+    width: 350px;
+    padding: 20px 30px;
+    border-radius: 20px;
+    justify-content: flex-start;
+    flex-direction: column;
+    border: 1.5px solid white;
+    background-color: rgba(0, 0, 0, 0);
+    
+   
+}
+#text1
+{    
+    cursor: text;
+    border: solid 1px #ffffff;
+    border-radius:10px;
+    border-bottom-right-radius: 0;
+    color: #ffffff;
+    direction: rtl;
+    margin-top: 15px; /* added margin-top to create a gap */
+    margin-bottom: 15px;
+    margin-left: 50px;
+    padding: 6px 10px;
+
+}
+#text1:hover
+{
+    background:linear-gradient(to right, rgb(100, 100, 235),rgb(174, 0, 255));
+    transition: 0.6s;
+    border: solid 1px transparent;
+}
+#text2
+{   
+    background-color: #ffffff69;
+    cursor: text;
+    color: rgb(255, 255, 255);
+    border-radius:10px;
+    border-bottom-left-radius: 0;
+    backdrop-filter: blur(10px);
+    margin-top: 10px;
+    margin-right: 30px;
+    margin-bottom: 10px;
+    padding: 6px 10px;
+}
+
+#text2:hover
+{
+    background:linear-gradient(to left, rgb(100, 100, 235),rgb(174, 0, 255));
+    transition: 0.6s;
+    border: solid 1px transparent;
+}
+
+.access{
+    position: relative;
+  margin-top: 5%;
+    
+}
+
+#access_button{
+    
+    background-color: #00000007;
+    padding: 10px;
+    font-size: 100;
+    color:white;
+
+    border: solid 1px  #f7f7f7;
+    border-radius: 30px;
+  cursor: pointer;
+  transition: 0.3s ease; 
+    
+}
+/* Style the select element */
+/* 
+.wrapper{
+    width:370px;
+    margin: 130px auto 0;
+}
+
+.select-btn{
+    height: 45px;
+    font-size:20px;
+    color: #000000;
+    align-items: center;
+    display: flex;
+    padding: 0 20px;
+    cursor: pointer;
+    border-radius: 7px;
+    background: white;
+    justify-content: space-between;
+}
+.select-btn i{
+    font-family: 31px;
+}
+.content{
+    color: #000000;
+    padding: 20px;
+    margin-top: 15px;
+    border-radius: 7px;
+    background: white;
+}
+.content .search{
+    position: relative;
+}
+
+.search i{
+    left: 15px;
+    line-height: 53px;
+    position: absolute;
+}
+
+.search input{
+    height: 43px;
+    width: 80%;
+    outline: none;
+    font-size: 17px;
+    border-radius: 5px;
+    padding: 0 15px 0 43px;
+    border: 1px solid rgb(75, 75, 75);
+}
+.content .options{
+    margin-top: 10px;
+    max-height: 250px;
+    overflow-y: auto;
+    
+}
+
+.options li{
+    height:50px;
+    padding: 0 13px;
+    font-size:  20px;
+    border-radius: 5px;
+}
+.options li:hover{
+    background-color: #fffbfb;
+} */
+
+
+.fr
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#language
+{
+    height: 40px;
+    width: 180px;
+    position: relative;
+    margin-top: 2%;
+    margin-bottom: 1%;
+    font-size: 14px;
+    padding: 10px 10px;
+    border: solid 1px #f7f7f7;
+    border-radius: 5px;
+    background-color: #0000007e;
+    color: #ffffff;
+    overflow-y: auto;
+
+  }
+
+  ::-webkit-scrollbar
+{
+    display: none;
+}
+  
+  /* Style the option elements */
+#language option {
+    font-size: 14px;
+}
+
+#op
+{
+    margin-bottom: 10px;
+    background-color: #ffffff21;
+    backdrop-filter: blur(3px);
+    color: #fffbfb;
+}
+  
+
+#access:hover
+{
+    border-color: #3a8fff;
+    color: rgb(58, 143, 255);
+    transition: 0.8s;
+    cursor: pointer;
+}
+  
+.btn
+{
+    background-color: transparent;
+    border: solid 3px white;
+    border-radius: 50px;
+    color: aliceblue;
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    word-spacing: 5px;
+    margin-left: 7%;
+    padding: 10px 80px;
+    position: relative;
+}
+
+
+.btn:hover
+{
+    border-color: rgb(58, 143, 255);
+    color: rgb(58, 143, 255);
+    transition: 0.8s;
+    cursor: pointer;
+}
+
+
+
+@media only screen and (max-width:820px) {
+    body
+    {
+        min-height: 100vh;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+  
+    header img
+    {
+        height: 25px;
+        width: 30px;
+        position: relative;
+        
+       
+    }
+
+
+    .container
+{
+    margin: 5px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 5px;
+    justify-content: space-between;
+}
+    .lcol img
+    {
+        display: none;
+        position: absolute;
+        
+        }
+
+    .rcol
+    {
+        
+        
+        margin-right:40% ;
+    }
+    .btn{
+        font-size: 10px;
+        border: solid white 1px;
+        margin-top: 90px;
+        margin-right: 0;
+    }
+    
+    .btn{
+        position: absolute;
+        padding: 10px 50px;
+        margin-left: 30%;
+    }
+
+    .access
+    {
+        position: relative;
+        margin-top:90%;
+        margin-left: 50%;    
+    }
+
+    #language
+{
+    height: 35px;
+    width: 100px;
+    position: relative;
+    margin-right:10%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    font-size: 12px;
+    padding: 10px 20px;
+    border: solid 1px #f7f7f7;
+    border-radius: 5px;
+    background-color: #0000007e;
+    color: #ffffff;
+    overflow-y: auto;
+  }
+  
+  /* Style the option elements */
+#language option {
+    font-size: 14px;
+    padding: 8px;
+   
+    border-radius: 4px;
+    background-color: #000000;
+    color: #fffbfb;
+  }
+  #canvas_container{
+    display: none;
+  }
+  
+  .access
+  {
+      margin-top:4% ;
+      position: relative;
+  }
+  #access_button{
+      background-color: #00000007;
+      padding: 10px;
+      font-size: 100;
+      color:white;
+
+      border: solid 1px  #f7f7f7;
+      border-radius: 30px;
+  }   
+}
+
+/* 
+.btn-11 {
+    border: none;
+    background: rgb(251,33,117);
+      background: linear-gradient(0deg, rgba(251,33,117,1) 0%, rgba(234,76,137,1) 100%);
+      color: #fff;
+      overflow: hidden;
+  }
+  .btn-11:hover {
+      text-decoration: none;
+      color: #fff;
+  }
+  .btn-11:before {
+      position: absolute;
+      content: '';
+      display: inline-block;
+      top: -180px;
+      left: 0;
+      width: 30px;
+      height: 100%;
+      background-color: #fff;
+      animation: shiny-btn1 3s ease-in-out infinite;
+  }
+  .btn-11:hover{
+    opacity: .7;
+  }
+  .btn-11:active{
+    box-shadow:  4px 4px 6px 0 rgba(255,255,255,.3),
+                -4px -4px 6px 0 rgba(116, 125, 136, .2), 
+      inset -4px -4px 6px 0 rgba(255,255,255,.2),
+      inset 4px 4px 6px 0 rgba(0, 0, 0, .2);
+  }
+  
+  
+  @-webkit-keyframes shiny-btn1 {
+      0% { -webkit-transform: scale(0) rotate(45deg); opacity: 0; }
+      80% { -webkit-transform: scale(0) rotate(45deg); opacity: 0.5; }
+      81% { -webkit-transform: scale(4) rotate(45deg); opacity: 1; }
+      100% { -webkit-transform: scale(50) rotate(45deg); opacity: 0; }
+  }
+  
+   */
